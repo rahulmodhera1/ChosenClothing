@@ -11,6 +11,7 @@ const GRADE = "contrast(1.12) saturate(1.1) brightness(1.06)";
 
 export default function HeroSection() {
   const [logoMissing, setLogoMissing] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
 
   return (
     <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
@@ -20,12 +21,23 @@ export default function HeroSection() {
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
+        onEnded={() => setVideoEnded(true)}
         className={FRAME}
         style={{ filter: GRADE }}
         aria-hidden="true"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
+
+      {/* Fade-to-dark on video end */}
+      {videoEnded && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.8, ease: easeOut }}
+          className="absolute inset-0 z-[10] bg-[#0f0d0b] pointer-events-none"
+        />
+      )}
 
       {/* Dark gradient — light in the middle, heavy at top and bottom */}
       <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/25 to-black/90" />
