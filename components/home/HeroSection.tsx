@@ -58,12 +58,17 @@ export default function HeroSection() {
       {/* Heavy vignette — pulls the sky back so the logo owns the frame */}
       <div className="absolute inset-0 z-[10] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 80% 80% at 50% 40%, transparent 20%, rgba(8,10,16,0.55) 60%, rgba(8,10,16,0.92) 100%)"
+          background: "radial-gradient(ellipse 80% 80% at 50% 40%, transparent 10%, rgba(8,10,16,0.65) 55%, rgba(8,10,16,0.96) 100%)"
         }}
       />
 
       {/* Top-to-bottom cinematic grade */}
-      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-[#080a10]/80 via-transparent to-[#080a10]/95" />
+      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-[#080a10]/90 via-[#080a10]/10 to-[#080a10]/98" />
+
+      {/* Extra mid-frame darkening layer for depth */}
+      <div className="absolute inset-0 z-[11] pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent 25%, rgba(8,10,16,0.3) 50%, transparent 70%)" }}
+      />
 
       {/* Animated starfield — fades in once the drone reaches the sky */}
       <AnimatePresence>
@@ -87,7 +92,7 @@ export default function HeroSection() {
           center the star (not the image) on the viewport — aligning it with the
           centered CN Tower behind it. */}
       {!logoMissing && (
-        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[38%] -translate-x-[53.3%] -translate-y-1/2">
+        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[30%] -translate-x-[53.3%] -translate-y-1/2">
           {/* Moonlit halo — fades in, then breathes continuously for life */}
           <motion.div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%]"
@@ -161,7 +166,8 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.3, delay: 0.4, ease: easeOut }}
-          className="text-white/75 text-base sm:text-xl md:text-2xl tracking-[0.45em] sm:tracking-[0.55em] uppercase font-light"
+          className="text-white text-2xl sm:text-4xl md:text-5xl tracking-[0.35em] sm:tracking-[0.45em] uppercase font-semibold"
+          style={{ textShadow: "0 0 40px rgba(255,255,255,0.35), 0 2px 20px rgba(0,0,0,0.8)" }}
         >
           One in a Million
         </motion.p>
@@ -169,26 +175,13 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.3, delay: 0.7, ease: easeOut }}
+          whileHover={{ scale: 1.04 }}
         >
           <Link
             href="/shop"
-            className="press group inline-flex items-center gap-4 rounded-full border border-white/25 bg-white/[0.06] backdrop-blur-md px-9 py-4 sm:px-12 sm:py-5 text-white text-xs sm:text-sm tracking-[0.3em] uppercase font-light transition-all duration-300 hover:border-white/60 hover:bg-white/[0.13]"
+            className="press inline-flex items-center rounded-full border border-white/30 bg-white/[0.07] backdrop-blur-md px-9 py-4 sm:px-12 sm:py-5 text-white text-xs sm:text-sm tracking-[0.3em] uppercase font-light transition-all duration-300 hover:border-white/70 hover:bg-white/[0.15] hover:shadow-[0_0_35px_rgba(255,255,255,0.14),inset_0_0_20px_rgba(255,255,255,0.04)]"
           >
             Shop the Collection
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
           </Link>
         </motion.div>
       </div>
