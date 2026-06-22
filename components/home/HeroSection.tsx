@@ -14,11 +14,10 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
-      {/* Drone video — loops as a pure background */}
+      {/* Drone video — plays once, holds on final frame */}
       <video
         autoPlay
         muted
-        loop
         playsInline
         poster={HERO_VIDEO_POSTER}
         className={FRAME}
@@ -33,12 +32,6 @@ export default function HeroSection() {
 
       {/* Top header band */}
       <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
-
-      {/* Bottom-right watermark cover */}
-      <div
-        className="absolute bottom-0 right-0 w-72 h-56 z-[12] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at bottom right, #0f0d0b 0%, #0f0d0b 42%, transparent 75%)" }}
-      />
 
       {/* Chosen logo — always visible, centered over the video */}
       {!logoMissing && (
