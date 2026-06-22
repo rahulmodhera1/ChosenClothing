@@ -1,5 +1,4 @@
-// Cinematic Toronto skyline hero video. Lives in /public/videos/.
-export const HERO_VIDEO_SRC = "/videos/ChosenToronto.mp4";
+export const HERO_VIDEO_SRC = "/videos/Drone.mp4";
 
 export const HERO_VIDEO_POSTER = "/images/hero-poster.jpg";
 
