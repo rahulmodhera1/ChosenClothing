@@ -44,7 +44,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="font-display text-2xl text-[#f0ebe3] tracking-widest hover:text-[#c4a882] transition-colors"
+              className="font-display text-2xl text-white tracking-widest hover:text-[#c4a882] transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               CHOSEN
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-[#a89880] hover:text-[#f0ebe3] transition-colors tracking-wider uppercase"
+                  className="text-sm font-medium text-white hover:text-[#c4a882] transition-colors tracking-wider uppercase"
                 >
                   {link.label}
                 </Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
               <button
                 onClick={openCart}
                 aria-label={`Open cart, ${totalQuantity} items`}
-                className="relative text-[#a89880] hover:text-[#f0ebe3] transition-colors"
+                className="relative text-white hover:text-[#c4a882] transition-colors"
               >
                 <svg
                   width="22"
@@ -94,7 +94,7 @@ export default function Navbar() {
 
               {/* Hamburger */}
               <button
-                className="md:hidden text-[#a89880] hover:text-[#f0ebe3] transition-colors"
+                className="md:hidden text-white hover:text-[#c4a882] transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}

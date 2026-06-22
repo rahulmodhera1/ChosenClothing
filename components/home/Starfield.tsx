@@ -18,7 +18,7 @@ type Star = {
   bright: boolean;
 };
 
-const COUNT = 90;
+const COUNT = 112;
 
 // Warm + cool whites so the field has depth instead of one flat tone.
 const TINTS = ["#fffdf7", "#fff", "#eaf2ff", "#fff4e6", "#f3ecff"];
