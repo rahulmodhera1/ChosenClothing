@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
-import { easeOut } from "@/lib/motion";
+import { easeOut, easeInOut } from "@/lib/motion";
+
+const LOGO_SRC = "/images/ChosenLogo.png";
 
 const FRAME = "absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top";
 const GRADE = "contrast(1.12) saturate(1.1) brightness(1.06)";
@@ -35,21 +37,52 @@ export default function HeroSection() {
       {/* Top header band */}
       <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
 
-      {/* Chosen logo — chrome centerpiece, reveals after the drone footage holds on the sky */}
+      {/* Chosen logo — chrome centerpiece. Reveals after the drone footage holds on
+          the sky: a focus-pull (blur clears as it settles) with a specular glint that
+          sweeps across the metal once it lands. */}
       <AnimatePresence>
         {videoEnded && !logoMissing && (
-          <motion.img
+          <motion.div
             key="logo"
-            src="/images/ChosenLogo.png"
-            alt="Chosen"
-            onError={() => setLogoMissing(true)}
-            initial={{ opacity: 0, scale: 0.94, y: 8 }}
+            initial={{ opacity: 0, scale: 1.06, y: 6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 2.2, delay: 0.5, ease: easeOut }}
+            transition={{ duration: 1.9, delay: 0.4, ease: easeOut }}
             className="absolute z-[20] pointer-events-none w-[82%] sm:w-[62%] md:w-[50%] lg:w-[42%] max-w-[620px] left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2"
             style={{ filter: "drop-shadow(0 0 50px rgba(196,168,130,0.22)) drop-shadow(0 6px 28px rgba(0,0,0,0.75))" }}
-            aria-hidden="true"
-          />
+          >
+            {/* Base chrome — blur clears as the logo settles into focus */}
+            <motion.img
+              src={LOGO_SRC}
+              alt="Chosen"
+              onError={() => setLogoMissing(true)}
+              initial={{ filter: "blur(14px)" }}
+              animate={{ filter: "blur(0px)" }}
+              transition={{ duration: 1.7, delay: 0.4, ease: easeOut }}
+              className="w-full h-auto block"
+              aria-hidden="true"
+            />
+            {/* Specular glint — a light band sweeping across the chrome shape only */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                maskImage: `url(${LOGO_SRC})`,
+                WebkitMaskImage: `url(${LOGO_SRC})`,
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+                background:
+                  "linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.55) 48%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.55) 52%, transparent 58%)",
+                backgroundSize: "260% 100%",
+                mixBlendMode: "screen",
+              }}
+              initial={{ backgroundPosition: "185% 0%" }}
+              animate={{ backgroundPosition: "-85% 0%" }}
+              transition={{ duration: 1.5, delay: 1.9, ease: easeInOut }}
+            />
+          </motion.div>
         )}
       </AnimatePresence>
 
