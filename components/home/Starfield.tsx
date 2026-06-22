@@ -27,8 +27,8 @@ function buildStars(): Star[] {
   const rand = mulberry32(20240622);
   const stars: Star[] = [];
   for (let i = 0; i < COUNT; i++) {
-    // Bias toward the upper sky; thin out near the bottom where the content sits.
-    const top = Math.pow(rand(), 1.5) * 80;
+    // Spread across the full sky, top to bottom, with a gentle bias upward.
+    const top = Math.pow(rand(), 1.2) * 100;
     const brightness = rand();
     const bright = brightness > 0.82; // ~18% get the sparkling cross-flare
     const size = bright ? 2 + rand() * 1.8 : 0.8 + rand() * 1.8;

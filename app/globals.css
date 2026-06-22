@@ -90,16 +90,6 @@ img {
   50%      { opacity: var(--star-max, 1);   transform: scale(1); }
 }
 
-@keyframes star-drift {
-  0%   { transform: translate3d(0, 0, 0); }
-  50%  { transform: translate3d(-1.2%, -1.6%, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-.star-field {
-  animation: star-drift 60s ease-in-out infinite;
-}
-
 @keyframes star-shine {
   0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
   50%      { opacity: 0.95; transform: translate(-50%, -50%) scale(1) rotate(45deg); }
