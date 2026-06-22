@@ -18,19 +18,21 @@ const STARS_LEAD = 2.5;
 
 export default function HeroSection() {
   const [logoMissing, setLogoMissing] = useState(false);
-  // Stars hold off until the sky shows; the logo is present from the start.
-  const [starsVisible, setStarsVisible] = useState(false);
+  // The sky reveal drives both the starfield and the deepening gradient: the
+  // frame stays light while the drone races through the city, then darkens as
+  // the camera tilts up to the open sky.
+  const [skyReached, setSkyReached] = useState(false);
   const armedRef = useRef(false);
 
-  const showStars = () => {
+  const revealSky = () => {
     if (armedRef.current) return;
     armedRef.current = true;
-    setStarsVisible(true);
+    setSkyReached(true);
   };
 
-  // Fallback: if the video never plays (blocked autoplay), still show the stars.
+  // Fallback: if the video never plays (blocked autoplay), still reveal the sky.
   useEffect(() => {
-    const t = setTimeout(showStars, 8000);
+    const t = setTimeout(revealSky, 8000);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -45,9 +47,9 @@ export default function HeroSection() {
         poster={HERO_VIDEO_POSTER}
         onTimeUpdate={(e) => {
           const v = e.currentTarget;
-          if (v.duration && v.currentTime >= v.duration - STARS_LEAD) showStars();
+          if (v.duration && v.currentTime >= v.duration - STARS_LEAD) revealSky();
         }}
-        onEnded={showStars}
+        onEnded={revealSky}
         className={FRAME}
         style={{ filter: GRADE }}
         aria-hidden="true"
@@ -55,24 +57,39 @@ export default function HeroSection() {
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
-      {/* Heavy vignette — pulls the sky back so the logo owns the frame */}
+      {/* Light base grade — always present so the logo and text stay legible
+          while the drone races through the lit-up city. Kept subtle on purpose. */}
       <div className="absolute inset-0 z-[10] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 80% 80% at 50% 40%, transparent 10%, rgba(8,10,16,0.65) 55%, rgba(8,10,16,0.96) 100%)"
+          background: "radial-gradient(ellipse 90% 90% at 50% 40%, transparent 30%, rgba(8,10,16,0.35) 75%, rgba(8,10,16,0.6) 100%)"
         }}
       />
 
-      {/* Top-to-bottom cinematic grade */}
-      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-[#080a10]/90 via-[#080a10]/10 to-[#080a10]/98" />
-
-      {/* Extra mid-frame darkening layer for depth */}
-      <div className="absolute inset-0 z-[11] pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent 25%, rgba(8,10,16,0.3) 50%, transparent 70%)" }}
-      />
+      {/* Deepening grade — fades in as the camera tilts up to the open sky,
+          pulling the frame into a darker, cinematic mood for the held finale. */}
+      <motion.div
+        className="absolute inset-0 z-[11] pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: skyReached ? 1 : 0 }}
+        transition={{ duration: 3, ease: easeOut }}
+      >
+        {/* Heavy vignette — pulls the sky back so the logo owns the frame */}
+        <div className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 80% 80% at 50% 40%, transparent 10%, rgba(8,10,16,0.6) 55%, rgba(8,10,16,0.94) 100%)"
+          }}
+        />
+        {/* Top-to-bottom cinematic grade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080a10]/85 via-[#080a10]/10 to-[#080a10]/96" />
+        {/* Mid-frame darkening for depth */}
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, transparent 25%, rgba(8,10,16,0.3) 50%, transparent 70%)" }}
+        />
+      </motion.div>
 
       {/* Animated starfield — fades in once the drone reaches the sky */}
       <AnimatePresence>
-        {starsVisible && (
+        {skyReached && (
           <motion.div
             key="stars"
             initial={{ opacity: 0 }}
