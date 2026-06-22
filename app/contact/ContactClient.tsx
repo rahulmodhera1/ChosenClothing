@@ -38,7 +38,7 @@ export default function ContactClient() {
         className="mb-12"
       >
         <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Reach Out</p>
-        <h1 className="font-display text-5xl sm:text-6xl text-[#f0ebe3] tracking-wider">CONTACT</h1>
+        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#f0ebe3] tracking-wider">CONTACT</h1>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">

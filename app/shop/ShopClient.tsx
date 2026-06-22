@@ -26,7 +26,7 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
     <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="mb-10">
         <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Everything</p>
-        <h1 className="font-display text-5xl sm:text-6xl text-[#f0ebe3] tracking-wider">ALL PRODUCTS</h1>
+        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#f0ebe3] tracking-wider">ALL PRODUCTS</h1>
       </div>
 
       {/* Collection filters */}

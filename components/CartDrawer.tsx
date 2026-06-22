@@ -91,20 +91,20 @@ export default function CartDrawer() {
                           {formatPrice(line.merchandise.price.amount, line.merchandise.price.currencyCode)}
                         </p>
                         <div className="flex items-center gap-3 mt-2">
-                          <div className="flex items-center gap-2 border border-[#2e2820] rounded">
+                          <div className="flex items-center border border-[#2e2820] rounded">
                             <button
                               onClick={() => updateItem(line.id, line.quantity - 1)}
                               disabled={isLoading}
-                              className="press px-2 py-1 text-[#a89880] hover:text-[#f0ebe3] disabled:opacity-50"
+                              className="press min-w-[40px] min-h-[40px] flex items-center justify-center text-[#a89880] hover:text-[#f0ebe3] disabled:opacity-50"
                               aria-label="Decrease quantity"
                             >
-                              -
+                              −
                             </button>
-                            <span className="text-[#f0ebe3] text-sm w-5 text-center">{line.quantity}</span>
+                            <span className="text-[#f0ebe3] text-sm w-6 text-center">{line.quantity}</span>
                             <button
                               onClick={() => updateItem(line.id, line.quantity + 1)}
                               disabled={isLoading}
-                              className="press px-2 py-1 text-[#a89880] hover:text-[#f0ebe3] disabled:opacity-50"
+                              className="press min-w-[40px] min-h-[40px] flex items-center justify-center text-[#a89880] hover:text-[#f0ebe3] disabled:opacity-50"
                               aria-label="Increase quantity"
                             >
                               +

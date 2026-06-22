@@ -39,22 +39,22 @@ export default function LookbookTeaser() {
         </motion.div>
       </div>
 
-      {/* Full-width image strip */}
-      <div className="flex gap-2 overflow-hidden">
+      {/* Full-width image strip — 2 cols on mobile, 4 on sm+ */}
+      <div className="grid grid-cols-2 sm:flex sm:gap-2 overflow-hidden gap-2 px-4 sm:px-0">
         {teaserImages.map((img, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 1.05 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: i * 0.1, ease: easeOut }}
-            className="relative flex-1 min-w-0 aspect-[2/3]"
+            className="relative sm:flex-1 min-w-0 aspect-[2/3]"
           >
             <Image
               src={img.src}
               alt={img.alt}
               fill
               className="object-cover"
-              sizes="25vw"
+              sizes="(max-width: 640px) 50vw, 25vw"
             />
           </motion.div>
         ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
@@ -26,6 +26,14 @@ export default function HeroSection() {
     armedRef.current = true;
     setRevealed(true);
   };
+
+  // Fallback: if the video never plays (mobile autoplay blocked, slow network, etc.)
+  // still reveal the logo after 5 s so the hero is never blank.
+  useEffect(() => {
+    const t = setTimeout(reveal, 5000);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
@@ -136,14 +144,14 @@ export default function HeroSection() {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: easeOut }}
-            className="h-px w-12 sm:w-20 origin-right bg-gradient-to-r from-transparent to-[#c4a882]"
+            className="h-px w-6 xs:w-10 sm:w-20 shrink-0 origin-right bg-gradient-to-r from-transparent to-[#c4a882]"
           />
-          {/* Tagline — bigger, bolder, settles from wide to tight tracking */}
+          {/* Tagline — settles from wide to tight tracking */}
           <motion.span
-            initial={{ opacity: 0, y: 16, letterSpacing: "0.6em" }}
-            animate={{ opacity: 1, y: 0, letterSpacing: "0.28em" }}
+            initial={{ opacity: 0, y: 16, letterSpacing: "0.5em" }}
+            animate={{ opacity: 1, y: 0, letterSpacing: "0.22em" }}
             transition={{ duration: 1.1, delay: 0.3, ease: easeOut }}
-            className="font-display font-bold text-[#f0ebe3] text-lg sm:text-2xl md:text-3xl uppercase whitespace-nowrap"
+            className="font-display font-bold text-[#f0ebe3] text-base sm:text-2xl md:text-3xl uppercase leading-none"
           >
             One in a Million
           </motion.span>
@@ -152,7 +160,7 @@ export default function HeroSection() {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: easeOut }}
-            className="h-px w-12 sm:w-20 origin-left bg-gradient-to-l from-transparent to-[#c4a882]"
+            className="h-px w-6 xs:w-10 sm:w-20 shrink-0 origin-left bg-gradient-to-l from-transparent to-[#c4a882]"
           />
         </div>
         <motion.div

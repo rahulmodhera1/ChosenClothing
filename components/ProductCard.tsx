@@ -61,10 +61,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        {/* View product overlay */}
+        {/* View product overlay — visible on hover (desktop) or always on touch */}
         <div
-          className={`absolute inset-0 flex items-end justify-center pb-5 transition-opacity duration-300 ${
-            hovered ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 flex items-end justify-center pb-5 transition-opacity duration-300 md:pointer-events-none ${
+            hovered ? "opacity-100" : "opacity-0 md:opacity-0 [@media(hover:none)]:opacity-100"
           }`}
         >
           <span className="bg-[#0f0d0b]/80 text-[#f0ebe3] text-xs font-medium tracking-widest px-5 py-2.5 uppercase border border-[#2e2820]">
