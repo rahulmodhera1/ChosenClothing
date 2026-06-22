@@ -13,15 +13,15 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
       {/* Video background — taller than the hero and anchored to the top so the
-          bottom strip (which carries the baked-in watermark) is cropped off.
-          Filter sharpens/brightens the chrome logo so it pops. */}
+          bottom strip (which carries the baked-in watermark, ~80% down) is
+          cropped off. Filter sharpens/brightens the chrome logo so it pops. */}
       <video
         autoPlay
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
         onEnded={() => setVideoEnded(true)}
-        className="absolute inset-x-0 top-0 w-full h-[122%] object-cover object-top"
+        className="absolute inset-x-0 top-0 w-full h-[132%] object-cover object-top"
         style={{ filter: "contrast(1.12) saturate(1.1) brightness(1.06)" }}
         aria-hidden="true"
       >
@@ -39,7 +39,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: easeOut }}
-            className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
+            className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
