@@ -58,75 +58,77 @@ export default function HeroSection() {
         )}
       </AnimatePresence>
 
-      {/* Chosen logo — emerges from the drone's push-in: scales up out of blur,
-          rising and decelerating into rest exactly as the camera settles. */}
-      <AnimatePresence>
-        {revealed && !logoMissing && (
-          <div
-            key="logo"
-            className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2"
-          >
-            {/* Soft moonlit halo — fades in with the mark for depth, never flashes */}
-            <motion.div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%]"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 0.4, scale: 1.05 }}
-              transition={{ duration: 2.8, ease: easeOut }}
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(170,190,230,0.4) 0%, rgba(120,140,190,0.16) 40%, transparent 70%)",
-                mixBlendMode: "screen",
-                filter: "blur(14px)",
-              }}
-            />
+      {/* Chosen logo — present from the start with a refined, continuous life:
+          a clean entrance, a softly breathing glow, a recurring shine, and a
+          gentle float. Smooth and premium — no flash, no bounce. */}
+      {!logoMissing && (
+        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2">
+          {/* Moonlit halo — fades in, then breathes continuously for life */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%]"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: [0, 0.45, 0.32, 0.45], scale: [0.85, 1.05, 1, 1.05] }}
+            transition={{
+              duration: 8,
+              ease: easeInOut,
+              times: [0, 0.25, 0.6, 1],
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(170,190,230,0.4) 0%, rgba(120,140,190,0.16) 40%, transparent 70%)",
+              mixBlendMode: "screen",
+              filter: "blur(14px)",
+            }}
+          />
 
-            {/* Float wrapper — slow breathing once it has landed */}
+          {/* Float wrapper — slow vertical breathing */}
+          <motion.div
+            animate={{ y: [0, -7, 0] }}
+            transition={{ duration: 9, ease: easeInOut, repeat: Infinity, delay: 1.6 }}
+            style={{ filter: "drop-shadow(0 0 60px rgba(160,180,220,0.18)) drop-shadow(0 12px 40px rgba(0,0,0,0.9))" }}
+          >
+            {/* Base chrome — clean entrance from a soft focus */}
+            <motion.img
+              src={LOGO_SRC}
+              alt="Chosen"
+              onError={() => setLogoMissing(true)}
+              initial={{ opacity: 0, scale: 0.92, filter: "blur(12px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              transition={{
+                duration: 1.8,
+                ease: easeOut,
+                opacity: { duration: 1.2, ease: easeOut },
+                filter: { duration: 1.5, ease: easeOut },
+              }}
+              className="w-full h-auto block"
+              aria-hidden="true"
+            />
+            {/* Left-to-right shine — sweeps in shortly after the entrance, recurring */}
             <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 9, ease: easeInOut, repeat: Infinity, delay: 3 }}
-              style={{ filter: "drop-shadow(0 0 60px rgba(160,180,220,0.18)) drop-shadow(0 12px 40px rgba(0,0,0,0.9))" }}
-            >
-              {/* Base chrome — scales up from the depth, blur clearing as it lands */}
-              <motion.img
-                src={LOGO_SRC}
-                alt="Chosen"
-                onError={() => setLogoMissing(true)}
-                initial={{ opacity: 0, scale: 0.84, y: 26, filter: "blur(22px)" }}
-                animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  duration: 2.8,
-                  ease: easeOut,
-                  opacity: { duration: 1.8, ease: easeOut },
-                  filter: { duration: 2.2, ease: easeOut },
-                }}
-                className="w-full h-auto block"
-                aria-hidden="true"
-              />
-              {/* Left-to-right shine — fires once the mark has settled */}
-              <motion.div
-                className="absolute inset-0"
-                style={{
-                  maskImage: `url(${LOGO_SRC})`,
-                  WebkitMaskImage: `url(${LOGO_SRC})`,
-                  maskSize: "contain",
-                  WebkitMaskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskPosition: "center",
-                  WebkitMaskPosition: "center",
-                  background:
-                    "linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.38) 47%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.38) 53%, transparent 60%)",
-                  backgroundSize: "260% 100%",
-                  mixBlendMode: "screen",
-                }}
-                initial={{ backgroundPosition: "-70% 0%" }}
-                animate={{ backgroundPosition: "170% 0%" }}
-                transition={{ duration: 1.8, delay: 2.8, ease: easeInOut, repeat: Infinity, repeatDelay: 4 }}
-              />
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              className="absolute inset-0"
+              style={{
+                maskImage: `url(${LOGO_SRC})`,
+                WebkitMaskImage: `url(${LOGO_SRC})`,
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+                background:
+                  "linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.4) 47%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 53%, transparent 60%)",
+                backgroundSize: "260% 100%",
+                mixBlendMode: "screen",
+              }}
+              initial={{ backgroundPosition: "-70% 0%" }}
+              animate={{ backgroundPosition: "170% 0%" }}
+              transition={{ duration: 1.7, delay: 1.4, ease: easeInOut, repeat: Infinity, repeatDelay: 3.5 }}
+            />
+          </motion.div>
+        </div>
+      )}
 
       {/* Bottom content — refined, editorial */}
       <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-14 sm:pb-20 gap-7">
