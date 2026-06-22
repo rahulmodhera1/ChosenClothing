@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
@@ -13,26 +13,10 @@ const FRAME = "absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top"
 // Desaturate slightly so the video reads as cinematic backdrop, not focal point.
 const GRADE = "contrast(1.08) saturate(0.82) brightness(0.9)";
 
-// Start the reveal ~3s out so the logo emerges across the drone's final push-in
-// and settles right as the camera comes to rest.
-const REVEAL_LEAD = 3;
-
 export default function HeroSection() {
   const [logoMissing, setLogoMissing] = useState(false);
-  const [revealed, setRevealed] = useState(false);
-  const armedRef = useRef(false);
-
-  const reveal = () => {
-    if (armedRef.current) return;
-    armedRef.current = true;
-    setRevealed(true);
-  };
-
-  useEffect(() => {
-    const t = setTimeout(reveal, 5000);
-    return () => clearTimeout(t);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Logo + stars reveal from the start, over the opening footage.
+  const revealed = true;
 
   return (
     <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-[#080a10]">
@@ -42,11 +26,6 @@ export default function HeroSection() {
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
-        onTimeUpdate={(e) => {
-          const v = e.currentTarget;
-          if (v.duration && v.currentTime >= v.duration - REVEAL_LEAD) reveal();
-        }}
-        onEnded={reveal}
         className={FRAME}
         style={{ filter: GRADE }}
         aria-hidden="true"
