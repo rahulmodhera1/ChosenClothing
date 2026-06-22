@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { useInView } from "framer-motion";
 import { easeOut } from "@/lib/motion";
 
@@ -11,7 +11,7 @@ interface CollectionCard {
   handle: string;
   title: string;
   subtitle: string;
-  image: string;
+  images: string[];
   badge: string;
   badgeColor: string;
   href: string;
@@ -22,7 +22,10 @@ const collections: CollectionCard[] = [
     handle: "brown-cargo-set",
     title: "Brown Cargo Set",
     subtitle: "The signature set. Heavy cotton. Built to last.",
-    image: "/images/collections/brown-cargo-set.jpg",
+    images: [
+      "/images/collections/Cargo/1.png",
+      "/images/collections/Cargo/2.png",
+    ],
     badge: "10% off first order",
     badgeColor: "bg-[#8a98ad] text-white",
     href: "/collections/brown-cargo-set",
@@ -31,12 +34,48 @@ const collections: CollectionCard[] = [
     handle: "washed-rhinestone-tracksuit",
     title: "Washed Rhinestone Tracksuit",
     subtitle: "New look. Raw materials. Rhinestone finish.",
-    image: "/images/collections/rhinestone-tracksuit.jpg",
+    images: ["/images/collections/rhinestone-tracksuit.jpg"],
     badge: "New Arrivals",
     badgeColor: "bg-white text-[#14171c]",
     href: "/collections/washed-rhinestone-tracksuit",
   },
 ];
+
+function CollectionMedia({ images, alt }: { images: string[]; alt: string }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [images.length]);
+
+  return (
+    <>
+      <AnimatePresence>
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1 }}
+          transition={{ opacity: { duration: 1.4, ease: easeOut }, scale: { duration: 6, ease: easeOut } }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[index]}
+            alt={alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={index === 0}
+          />
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+}
 
 export default function FeaturedCollections() {
   const ref = useRef(null);
@@ -63,13 +102,9 @@ export default function FeaturedCollections() {
             transition={{ duration: 0.6, delay: i * 0.15, ease: easeOut }}
           >
             <Link href={col.href} className="group block relative overflow-hidden aspect-[4/5]">
-              <Image
-                src={col.image}
-                alt={col.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+                <CollectionMedia images={col.images} alt={col.title} />
+              </div>
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
