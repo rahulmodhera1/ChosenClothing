@@ -1,5 +1,5 @@
-// Drop your cinematic Toronto skyline hero video into /public/videos/ and update this path.
-export const HERO_VIDEO_SRC = "/videos/hero.mp4";
+// Cinematic Toronto skyline hero video. Lives in /public/videos/.
+export const HERO_VIDEO_SRC = "/videos/ChosenToronto.mp4";
 
 export const HERO_VIDEO_POSTER = "/images/hero-poster.jpg";
 
