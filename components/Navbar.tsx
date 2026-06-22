@@ -125,7 +125,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.35, ease: easeDrawer }}
-            className="fixed inset-0 z-40 bg-[#0f0d0b] flex flex-col justify-center items-center md:hidden"
+            className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center md:hidden"
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
@@ -138,7 +138,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-4xl text-[#f0ebe3] hover:text-[#c4a882] transition-colors tracking-widest"
+                    className="font-display text-4xl text-[#0f0d0b] hover:text-[#c4a882] transition-colors tracking-widest"
                   >
                     {link.label.toUpperCase()}
                   </Link>
