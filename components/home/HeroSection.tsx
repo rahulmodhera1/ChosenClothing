@@ -27,12 +27,48 @@ export default function HeroSection() {
   // smoothly as the camera climbs, rather than snapping on near the end.
   const [gradeProgress, setGradeProgress] = useState(0);
   const armedRef = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const revealSky = () => {
     if (armedRef.current) return;
     armedRef.current = true;
     setSkyReached(true);
   };
+
+  // Robust autoplay for mobile. Browsers (notably iOS Safari) only autoplay
+  // when the element is *programmatically* confirmed muted and play() is
+  // explicitly invoked — the HTML attributes alone aren't always honored.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const tryPlay = () => {
+      v.muted = true;
+      v.defaultMuted = true;
+      const p = v.play();
+      if (p) p.catch(() => { /* will retry on interaction */ });
+    };
+
+    tryPlay();
+    v.addEventListener("loadeddata", tryPlay);
+    v.addEventListener("canplay", tryPlay);
+
+    // Last resort: kick playback on the first user gesture, then detach.
+    const onGesture = () => {
+      tryPlay();
+      window.removeEventListener("touchstart", onGesture);
+      window.removeEventListener("click", onGesture);
+    };
+    window.addEventListener("touchstart", onGesture, { passive: true });
+    window.addEventListener("click", onGesture);
+
+    return () => {
+      v.removeEventListener("loadeddata", tryPlay);
+      v.removeEventListener("canplay", tryPlay);
+      window.removeEventListener("touchstart", onGesture);
+      window.removeEventListener("click", onGesture);
+    };
+  }, []);
 
   // Fallback: if the video never plays (blocked autoplay), settle into the
   // final graded state anyway.
@@ -49,9 +85,11 @@ export default function HeroSection() {
     <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-[#080a10]">
       {/* Drone video — plays once, holds on final frame */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         playsInline
+        preload="auto"
         poster={HERO_VIDEO_POSTER}
         onTimeUpdate={(e) => {
           const v = e.currentTarget;
