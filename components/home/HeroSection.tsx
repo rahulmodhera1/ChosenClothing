@@ -261,14 +261,14 @@ export default function HeroSection() {
             className="text-center text-xl sm:text-4xl md:text-5xl uppercase font-semibold"
             style={{
               backgroundImage:
-                "linear-gradient(110deg, #9aa3b2 0%, #ffffff 22%, #f3eee6 38%, #ffffff 50%, #d8c4a4 60%, #ffffff 74%, #9aa3b2 100%)",
-              backgroundSize: "220% 100%",
+                "linear-gradient(110deg, #8a98ad 0%, #dce5f0 18%, #ffffff 28%, #eef2f8 40%, #ffffff 52%, #c4cfde 64%, #ffffff 76%, #8a98ad 100%)",
+              backgroundSize: "240% 100%",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
               WebkitTextFillColor: "transparent",
               filter:
-                "drop-shadow(0 2px 16px rgba(0,0,0,0.75)) drop-shadow(0 0 30px rgba(216,196,164,0.28))",
+                "drop-shadow(0 2px 18px rgba(0,0,0,0.8)) drop-shadow(0 0 32px rgba(138,152,173,0.3))",
             }}
           >
             One in a Million
