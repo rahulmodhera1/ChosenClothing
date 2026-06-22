@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
 import { easeOut } from "@/lib/motion";
 
@@ -30,37 +30,44 @@ export default function HeroSection() {
       </video>
 
       {/* Fade-to-dark on video end */}
-      {videoEnded && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.8, ease: easeOut }}
-          className="absolute inset-0 z-[10] bg-[#0f0d0b] pointer-events-none"
-        />
-      )}
+      <AnimatePresence>
+        {videoEnded && (
+          <motion.div
+            key="fade"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: easeOut }}
+            className="absolute inset-0 z-[10] bg-[#0f0d0b] pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Dark gradient — light in the middle, heavy at top and bottom */}
-      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/25 to-black/90" />
+      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/20 to-black/90" />
 
       {/* Top header band */}
       <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
 
-      {/* Chosen logo — always visible, centered over the video */}
-      {!logoMissing && (
-        <motion.img
-          src="/images/chosen-hero-overlay.png"
-          alt="Chosen"
-          onError={() => setLogoMissing(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.6, ease: easeOut }}
-          className="absolute z-[15] pointer-events-none w-[72%] sm:w-[52%] md:w-[40%] max-w-[520px] left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2"
-          aria-hidden="true"
-        />
-      )}
+      {/* Chosen logo — fades in after video ends, centered and prominent */}
+      <AnimatePresence>
+        {videoEnded && !logoMissing && (
+          <motion.img
+            key="logo"
+            src="/images/chosen-hero-overlay.png"
+            alt="Chosen"
+            onError={() => setLogoMissing(true)}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2.2, delay: 0.6, ease: easeOut }}
+            className="absolute z-[20] pointer-events-none w-[88%] sm:w-[64%] md:w-[52%] lg:w-[44%] max-w-[600px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{ filter: "drop-shadow(0 0 40px rgba(200,200,220,0.18)) drop-shadow(0 4px 24px rgba(0,0,0,0.7))" }}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Bottom content */}
-      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center text-center px-4 pb-16 sm:pb-20">
+      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-4 pb-16 sm:pb-20">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
