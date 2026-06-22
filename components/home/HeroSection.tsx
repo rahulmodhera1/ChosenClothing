@@ -12,24 +12,36 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
-      {/* Video background — taller than the hero and anchored to the top so the
-          bottom strip (which carries the baked-in watermark, ~80% down) is
-          cropped off. Filter sharpens/brightens the chrome logo so it pops. */}
+      {/* Video background. Slightly taller than the hero, anchored to the top, so
+          the lower portion shows (logo sits higher, not pinned to the bottom)
+          while the very bottom-right watermark is pushed into the dark corner.
+          Filter sharpens/brightens the chrome logo so it pops. */}
       <video
         autoPlay
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
         onEnded={() => setVideoEnded(true)}
-        className="absolute inset-x-0 top-0 w-full h-[132%] object-cover object-top"
+        className="absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top"
         style={{ filter: "contrast(1.12) saturate(1.1) brightness(1.06)" }}
         aria-hidden="true"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
-      {/* Gradient overlay — lighter in the center so the logo shows through brighter */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/85" />
+      {/* Base gradient — light in the middle so the logo shows through, dark at the
+          bottom to seat the content and bury the corner watermark. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-black/90" />
+
+      {/* Top header band — reduces the open sky and frames the navigation. */}
+      <div className="absolute inset-x-0 top-0 h-[38%] z-[5] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
+
+      {/* Soft vignette over the baked-in bottom-right watermark (now tucked in the
+          darkest corner, so it reads as a natural vignette rather than a patch). */}
+      <div
+        className="absolute bottom-0 right-0 w-72 h-56 z-[6] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at bottom right, #0f0d0b 0%, #0f0d0b 42%, transparent 75%)" }}
+      />
 
       {/* Crisp chrome logo — fades in over the video's final frame when it ends */}
       <AnimatePresence>
@@ -39,7 +51,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: easeOut }}
-            className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
+            className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -53,7 +65,7 @@ export default function HeroSection() {
       </AnimatePresence>
 
       {/* Bottom content */}
-      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center text-center px-4 pb-20 sm:pb-24">
+      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center text-center px-4 pb-16 sm:pb-20">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
