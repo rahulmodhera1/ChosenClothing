@@ -57,9 +57,9 @@ export default function LookbookPage() {
     <div className="pt-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="mb-12 text-center">
-          <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-3">Editorial</p>
-          <h1 className="font-display text-5xl sm:text-7xl text-[#f0ebe3] tracking-wider">THE LOOKBOOK</h1>
-          <p className="text-[#a89880] text-sm mt-4 max-w-md mx-auto leading-relaxed">
+          <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-3">Editorial</p>
+          <h1 className="font-display text-5xl sm:text-7xl text-[#14171c] tracking-wider">THE LOOKBOOK</h1>
+          <p className="text-[#5b6573] text-sm mt-4 max-w-md mx-auto leading-relaxed">
             Shot in Toronto. Worn by the ones who move different.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function LookbookPage() {
           {lookbookItems.map((item, i) => (
             <div
               key={i}
-              className={`relative overflow-hidden bg-[#1a1714] group ${item.span}`}
+              className={`relative overflow-hidden bg-[#eef1f5] group ${item.span}`}
             >
               <Image
                 src={item.src}
@@ -80,7 +80,7 @@ export default function LookbookPage() {
               />
               {item.caption && (
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
-                  <span className="text-[#f0ebe3] text-sm font-medium tracking-wider">
+                  <span className="text-white text-sm font-medium tracking-wider">
                     {item.caption}
                   </span>
                 </div>
@@ -91,10 +91,10 @@ export default function LookbookPage() {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <p className="text-[#a89880] text-sm mb-6 tracking-wide">Ready to wear it yourself?</p>
+          <p className="text-[#5b6573] text-sm mb-6 tracking-wide">Ready to wear it yourself?</p>
           <Link
             href="/shop"
-            className="press inline-block border border-[#c4a882] text-[#c4a882] hover:bg-[#c4a882] hover:text-[#0f0d0b] font-display text-sm tracking-widest px-10 py-4"
+            className="press inline-block border border-[#8a98ad] text-[#8a98ad] hover:bg-[#8a98ad] hover:text-white font-display text-sm tracking-widest px-10 py-4"
           >
             SHOP NOW
           </Link>

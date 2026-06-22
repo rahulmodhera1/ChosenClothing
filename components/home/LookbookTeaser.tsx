@@ -18,7 +18,7 @@ export default function LookbookTeaser() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-20 bg-[#0a0906]">
+    <section ref={ref} className="py-20 bg-[#eef1f5]">
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,12 +27,12 @@ export default function LookbookTeaser() {
           className="flex items-end justify-between mb-8"
         >
           <div>
-            <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Editorial</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-[#f0ebe3] tracking-wider">THE LOOKBOOK</h2>
+            <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Editorial</p>
+            <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider">THE LOOKBOOK</h2>
           </div>
           <Link
             href="/lookbook"
-            className="hidden sm:inline-block text-[#c4a882] text-xs tracking-widest uppercase border-b border-[#c4a882] pb-0.5 hover:text-[#f0ebe3] hover:border-[#f0ebe3] transition-colors"
+            className="hidden sm:inline-block text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5 hover:text-[#14171c] hover:border-[#14171c] transition-colors"
           >
             View All
           </Link>
@@ -63,7 +63,7 @@ export default function LookbookTeaser() {
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-6 sm:hidden">
         <Link
           href="/lookbook"
-          className="text-[#c4a882] text-xs tracking-widest uppercase border-b border-[#c4a882] pb-0.5"
+          className="text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5"
         >
           View All
         </Link>

@@ -25,11 +25,11 @@ export default function Newsletter() {
         transition={{ duration: 0.7, ease: easeOut }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-3">Stay in the loop</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-[#f0ebe3] tracking-wider mb-4">
+        <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-3">Stay in the loop</p>
+        <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider mb-4">
           JOIN THE CHOSEN FEW
         </h2>
-        <p className="text-[#a89880] text-sm leading-relaxed mb-8">
+        <p className="text-[#5b6573] text-sm leading-relaxed mb-8">
           New subscribers get 10% off their first purchase. No spam, just drops.
         </p>
 
@@ -38,7 +38,7 @@ export default function Newsletter() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: easeOut }}
-            className="text-[#c4a882] text-sm tracking-widest uppercase"
+            className="text-[#6f7e95] text-sm tracking-widest uppercase"
           >
             You are in. Check your inbox.
           </motion.div>
@@ -52,11 +52,11 @@ export default function Newsletter() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="flex-1 bg-[#1a1714] border border-[#2e2820] text-[#f0ebe3] placeholder-[#a89880] text-sm px-5 py-3.5 focus:outline-none focus:border-[#c4a882] transition-colors"
+              className="flex-1 bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors"
             />
             <button
               type="submit"
-              className="press bg-[#c4a882] hover:bg-[#d4bc9a] text-[#0f0d0b] font-display text-sm tracking-widest px-8 py-3.5 whitespace-nowrap"
+              className="press bg-[#8a98ad] hover:bg-[#6f7e95] text-white font-display text-sm tracking-widest px-8 py-3.5 whitespace-nowrap"
             >
               SUBSCRIBE
             </button>

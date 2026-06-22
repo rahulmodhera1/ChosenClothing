@@ -28,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1714]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#eef1f5]">
         {primaryImage ? (
           <Image
             src={primaryImage.url}
@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full bg-[#2e2820]" />
+          <div className="w-full h-full bg-[#e4e8ee]" />
         )}
 
         {hoverImage && (
@@ -56,7 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         {!product.availableForSale && (
-          <div className="absolute top-3 left-3 bg-[#0f0d0b]/80 text-[#a89880] text-[10px] font-medium tracking-widest px-2 py-1 uppercase">
+          <div className="absolute top-3 left-3 bg-white/85 text-[#14171c] text-[10px] font-medium tracking-widest px-2 py-1 uppercase">
             Sold Out
           </div>
         )}
@@ -67,15 +67,15 @@ export default function ProductCard({ product }: ProductCardProps) {
             hovered ? "opacity-100" : "opacity-0 md:opacity-0 [@media(hover:none)]:opacity-100"
           }`}
         >
-          <span className="bg-[#0f0d0b]/80 text-[#f0ebe3] text-xs font-medium tracking-widest px-5 py-2.5 uppercase border border-[#2e2820]">
+          <span className="bg-white/90 text-[#14171c] text-xs font-medium tracking-widest px-5 py-2.5 uppercase border border-white/60">
             View Product
           </span>
         </div>
       </div>
 
       <div className="pt-3 pb-1">
-        <h3 className="text-[#f0ebe3] text-sm font-medium tracking-wide">{product.title}</h3>
-        <p className="text-[#c4a882] text-sm mt-0.5">{price}</p>
+        <h3 className="text-[#14171c] text-sm font-medium tracking-wide">{product.title}</h3>
+        <p className="text-[#8a98ad] text-sm mt-0.5">{price}</p>
       </div>
     </Link>
   );

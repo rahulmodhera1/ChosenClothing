@@ -27,7 +27,7 @@ export default function ContactClient() {
   };
 
   const inputClass =
-    "w-full bg-[#1a1714] border border-[#2e2820] text-[#f0ebe3] placeholder-[#a89880] text-sm px-5 py-3.5 focus:outline-none focus:border-[#c4a882] transition-colors";
+    "w-full bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors";
 
   return (
     <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -37,8 +37,8 @@ export default function ContactClient() {
         transition={{ duration: 0.6, ease: easeOut }}
         className="mb-12"
       >
-        <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Reach Out</p>
-        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#f0ebe3] tracking-wider">CONTACT</h1>
+        <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Reach Out</p>
+        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#14171c] tracking-wider">CONTACT</h1>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -48,18 +48,18 @@ export default function ContactClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: easeOut }}
         >
-          <h2 className="font-display text-2xl text-[#f0ebe3] tracking-wider mb-2">GET IN TOUCH</h2>
-          <p className="text-[#a89880] text-sm mb-6 leading-relaxed">
+          <h2 className="font-display text-2xl text-[#14171c] tracking-wider mb-2">GET IN TOUCH</h2>
+          <p className="text-[#5b6573] text-sm mb-6 leading-relaxed">
             Questions about your order, sizing, or anything else? Hit us up.
           </p>
-          <p className="text-[#c4a882] text-sm mb-6">
-            <a href="mailto:chosenbrandca@gmail.com" className="hover:text-[#f0ebe3] transition-colors">
+          <p className="text-[#8a98ad] text-sm mb-6">
+            <a href="mailto:chosenbrandca@gmail.com" className="hover:text-[#14171c] transition-colors">
               chosenbrandca@gmail.com
             </a>
           </p>
 
           {contactSent ? (
-            <div className="text-[#c4a882] text-sm tracking-widest uppercase py-8">
+            <div className="text-[#8a98ad] text-sm tracking-widest uppercase py-8">
               Message sent. We will get back to you soon.
             </div>
           ) : (
@@ -102,7 +102,7 @@ export default function ContactClient() {
               </div>
               <button
                 type="submit"
-                className="press w-full bg-[#c4a882] hover:bg-[#d4bc9a] text-[#0f0d0b] font-display text-sm tracking-widest py-4"
+                className="press w-full bg-[#8a98ad] hover:bg-[#6f7e95] text-white font-display text-sm tracking-widest py-4"
               >
                 SEND
               </button>
@@ -117,13 +117,13 @@ export default function ContactClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
         >
-          <h2 className="font-display text-2xl text-[#f0ebe3] tracking-wider mb-2">BRAND AMBASSADOR</h2>
-          <p className="text-[#a89880] text-sm mb-6 leading-relaxed">
+          <h2 className="font-display text-2xl text-[#14171c] tracking-wider mb-2">BRAND AMBASSADOR</h2>
+          <p className="text-[#5b6573] text-sm mb-6 leading-relaxed">
             We are always looking for people who move different. If you represent the Chosen energy, apply below.
           </p>
 
           {ambassadorSent ? (
-            <div className="text-[#c4a882] text-sm tracking-widest uppercase py-8">
+            <div className="text-[#8a98ad] text-sm tracking-widest uppercase py-8">
               Application received. We will be in touch.
             </div>
           ) : (
@@ -188,7 +188,7 @@ export default function ContactClient() {
               </div>
               <button
                 type="submit"
-                className="press w-full border border-[#c4a882] text-[#c4a882] hover:bg-[#c4a882] hover:text-[#0f0d0b] font-display text-sm tracking-widest py-4"
+                className="press w-full border border-[#8a98ad] text-[#8a98ad] hover:bg-[#8a98ad] hover:text-white font-display text-sm tracking-widest py-4"
               >
                 APPLY
               </button>

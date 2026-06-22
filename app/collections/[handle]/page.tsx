@@ -27,11 +27,11 @@ export default async function CollectionPage({ params }: Params) {
   return (
     <div className="pt-16 min-h-screen">
       <div className="relative h-[40vh] min-h-[280px] overflow-hidden">
-        {collection.image ? <Image src={collection.image.url} alt={collection.image.altText ?? collection.title} fill className="object-cover" priority sizes="100vw" /> : <div className="w-full h-full bg-[#1a1714]" />}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0d0b] via-black/40 to-black/20" />
+        {collection.image ? <Image src={collection.image.url} alt={collection.image.altText ?? collection.title} fill className="object-cover" priority sizes="100vw" /> : <div className="w-full h-full bg-[#eef1f5]" />}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
         <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10">
-          <h1 className="font-display text-4xl sm:text-6xl text-[#f0ebe3] tracking-wider">{collection.title.toUpperCase()}</h1>
-          {collection.description && <p className="text-[#a89880] text-sm mt-2 max-w-lg leading-relaxed">{collection.description}</p>}
+          <h1 className="font-display text-4xl sm:text-6xl text-white tracking-wider">{collection.title.toUpperCase()}</h1>
+          {collection.description && <p className="text-white/75 text-sm mt-2 max-w-lg leading-relaxed">{collection.description}</p>}
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -39,7 +39,7 @@ export default async function CollectionPage({ params }: Params) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {collection.products.nodes.map((product) => <ProductCard key={product.id} product={product} />)}
           </div>
-        ) : <div className="text-center py-20"><p className="text-[#a89880] text-sm tracking-wide">New pieces dropping soon.</p></div>}
+        ) : <div className="text-center py-20"><p className="text-[#5b6573] text-sm tracking-wide">New pieces dropping soon.</p></div>}
       </div>
     </div>
   );

@@ -22,8 +22,8 @@ export default function MostPopular({ products }: MostPopularProps) {
         transition={{ duration: 0.6, ease: easeOut }}
         className="mb-10"
       >
-        <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Our Drop</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-[#f0ebe3] tracking-wider">MOST POPULAR</h2>
+        <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Our Drop</p>
+        <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider">MOST POPULAR</h2>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

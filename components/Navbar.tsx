@@ -42,7 +42,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="font-display text-2xl text-[#0f0d0b] tracking-widest hover:text-[#c4a882] transition-colors"
+              className="font-display text-2xl text-[#14171c] tracking-widest hover:text-[#8a98ad] transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               CHOSEN
@@ -54,7 +54,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-[#0f0d0b] hover:text-[#c4a882] transition-colors tracking-wider uppercase"
+                  className="text-sm font-medium text-[#14171c] hover:text-[#8a98ad] transition-colors tracking-wider uppercase"
                 >
                   {link.label}
                 </Link>
@@ -67,7 +67,7 @@ export default function Navbar() {
               <button
                 onClick={openCart}
                 aria-label={`Open cart, ${totalQuantity} items`}
-                className="relative text-[#0f0d0b] hover:text-[#c4a882] transition-colors"
+                className="relative text-[#14171c] hover:text-[#8a98ad] transition-colors"
               >
                 <svg
                   width="22"
@@ -84,7 +84,7 @@ export default function Navbar() {
                   <path d="M16 10a4 4 0 01-8 0" />
                 </svg>
                 {totalQuantity > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 bg-[#c4a882] text-[#0f0d0b] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 bg-[#8a98ad] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                     {totalQuantity > 9 ? "9+" : totalQuantity}
                   </span>
                 )}
@@ -92,7 +92,7 @@ export default function Navbar() {
 
               {/* Hamburger */}
               <button
-                className="md:hidden text-[#0f0d0b] hover:text-[#c4a882] transition-colors"
+                className="md:hidden text-[#14171c] hover:text-[#8a98ad] transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
@@ -138,7 +138,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-4xl text-[#0f0d0b] hover:text-[#c4a882] transition-colors tracking-widest"
+                    className="font-display text-4xl text-[#14171c] hover:text-[#8a98ad] transition-colors tracking-widest"
                   >
                     {link.label.toUpperCase()}
                   </Link>

@@ -25,8 +25,8 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
   return (
     <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="mb-10">
-        <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Everything</p>
-        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#f0ebe3] tracking-wider">ALL PRODUCTS</h1>
+        <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Everything</p>
+        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#14171c] tracking-wider">ALL PRODUCTS</h1>
       </div>
 
       {/* Collection filters */}
@@ -35,8 +35,8 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
           onClick={() => setActiveCollection(null)}
           className={`press text-xs font-medium tracking-widest uppercase px-5 py-2.5 border ${
             !activeCollection
-              ? "bg-[#c4a882] border-[#c4a882] text-[#0f0d0b]"
-              : "border-[#2e2820] text-[#a89880] hover:border-[#c4a882] hover:text-[#c4a882]"
+              ? "bg-[#8a98ad] border-[#8a98ad] text-white"
+              : "border-[#dde1e8] text-[#5b6573] hover:border-[#8a98ad] hover:text-[#8a98ad]"
           }`}
         >
           All
@@ -47,8 +47,8 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
             onClick={() => setActiveCollection(col.handle)}
             className={`press text-xs font-medium tracking-widest uppercase px-5 py-2.5 border ${
               activeCollection === col.handle
-                ? "bg-[#c4a882] border-[#c4a882] text-[#0f0d0b]"
-                : "border-[#2e2820] text-[#a89880] hover:border-[#c4a882] hover:text-[#c4a882]"
+                ? "bg-[#8a98ad] border-[#8a98ad] text-white"
+                : "border-[#dde1e8] text-[#5b6573] hover:border-[#8a98ad] hover:text-[#8a98ad]"
             }`}
           >
             {col.title}
@@ -72,7 +72,7 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
 
       {filtered.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-[#a89880] text-sm tracking-wide">No products found.</p>
+          <p className="text-[#5b6573] text-sm tracking-wide">No products found.</p>
         </div>
       )}
     </div>

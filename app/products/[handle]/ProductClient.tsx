@@ -45,7 +45,7 @@ export default function ProductClient({ product }: ProductClientProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, ease: easeOut }}
-              className="relative aspect-[3/4] bg-[#1a1714] overflow-hidden"
+              className="relative aspect-[3/4] bg-[#eef1f5] overflow-hidden"
             >
               {images[activeImage] ? (
                 <Image
@@ -57,8 +57,8 @@ export default function ProductClient({ product }: ProductClientProps) {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               ) : (
-                <div className="w-full h-full bg-[#2e2820] flex items-center justify-center">
-                  <span className="text-[#a89880] text-sm">No image</span>
+                <div className="w-full h-full bg-[#e4e8ee] flex items-center justify-center">
+                  <span className="text-[#5b6573] text-sm">No image</span>
                 </div>
               )}
             </motion.div>
@@ -70,7 +70,7 @@ export default function ProductClient({ product }: ProductClientProps) {
                     onClick={() => setActiveImage(i)}
                     aria-label={`View image ${i + 1}`}
                     className={`press relative w-16 h-20 overflow-hidden flex-shrink-0 ${
-                      activeImage === i ? "ring-1 ring-[#c4a882]" : "opacity-60 hover:opacity-100"
+                      activeImage === i ? "ring-1 ring-[#8a98ad]" : "opacity-60 hover:opacity-100"
                     }`}
                   >
                     <Image
@@ -93,17 +93,17 @@ export default function ProductClient({ product }: ProductClientProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOut }}
             >
-              <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Chosen</p>
-              <h1 className="font-display text-4xl sm:text-5xl text-[#f0ebe3] tracking-wider leading-tight">
+              <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Chosen</p>
+              <h1 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider leading-tight">
                 {product.title.toUpperCase()}
               </h1>
 
               <div className="flex items-baseline gap-3 mt-4">
-                <span className="text-[#c4a882] text-2xl font-medium">
+                <span className="text-[#8a98ad] text-2xl font-medium">
                   {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
                 </span>
                 {selectedVariant.compareAtPrice && (
-                  <span className="text-[#a89880] text-lg line-through">
+                  <span className="text-[#5b6573] text-lg line-through">
                     {formatPrice(selectedVariant.compareAtPrice.amount, selectedVariant.compareAtPrice.currencyCode)}
                   </span>
                 )}
@@ -112,8 +112,8 @@ export default function ProductClient({ product }: ProductClientProps) {
               {/* Size selector */}
               {sizeOptions.length > 1 && (
                 <div className="mt-8">
-                  <p className="text-[#f0ebe3] text-xs font-medium tracking-widest uppercase mb-3">
-                    Size: <span className="text-[#c4a882]">{selectedVariant.selectedOptions.find((o) => o.name === "Size")?.value ?? selectedVariant.title}</span>
+                  <p className="text-[#14171c] text-xs font-medium tracking-widest uppercase mb-3">
+                    Size: <span className="text-[#8a98ad]">{selectedVariant.selectedOptions.find((o) => o.name === "Size")?.value ?? selectedVariant.title}</span>
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {sizeOptions.map(({ variant, size }) => (
@@ -123,10 +123,10 @@ export default function ProductClient({ product }: ProductClientProps) {
                         disabled={!variant.availableForSale}
                         className={`press w-12 h-12 text-xs font-medium tracking-widest border ${
                           selectedVariant.id === variant.id
-                            ? "bg-[#f0ebe3] border-[#f0ebe3] text-[#0f0d0b]"
+                            ? "bg-[#14171c] border-[#14171c] text-white"
                             : variant.availableForSale
-                            ? "border-[#2e2820] text-[#a89880] hover:border-[#c4a882] hover:text-[#c4a882]"
-                            : "border-[#1a1714] text-[#2e2820] cursor-not-allowed line-through"
+                            ? "border-[#dde1e8] text-[#5b6573] hover:border-[#8a98ad] hover:text-[#8a98ad]"
+                            : "border-[#e4e8ee] text-[#c2cad6] cursor-not-allowed line-through"
                         }`}
                         aria-label={`Select size ${size}`}
                         aria-pressed={selectedVariant.id === variant.id}
@@ -145,10 +145,10 @@ export default function ProductClient({ product }: ProductClientProps) {
                   disabled={!selectedVariant.availableForSale || isLoading}
                   className={`press w-full font-display text-sm tracking-widest py-5 ${
                     !selectedVariant.availableForSale
-                      ? "bg-[#1a1714] border border-[#2e2820] text-[#a89880] cursor-not-allowed"
+                      ? "bg-[#eef1f5] border border-[#dde1e8] text-[#5b6573] cursor-not-allowed"
                       : added
-                      ? "bg-[#5c3d1e] text-[#f0ebe3]"
-                      : "bg-[#c4a882] hover:bg-[#d4bc9a] text-[#0f0d0b]"
+                      ? "bg-[#6f7e95] text-white"
+                      : "bg-[#8a98ad] hover:bg-[#6f7e95] text-white"
                   }`}
                 >
                   {!selectedVariant.availableForSale
@@ -163,8 +163,8 @@ export default function ProductClient({ product }: ProductClientProps) {
 
               {/* Description */}
               {product.description && (
-                <div className="mt-8 pt-8 border-t border-[#2e2820]">
-                  <p className="text-[#a89880] text-sm leading-relaxed">{product.description}</p>
+                <div className="mt-8 pt-8 border-t border-[#dde1e8]">
+                  <p className="text-[#5b6573] text-sm leading-relaxed">{product.description}</p>
                 </div>
               )}
 
@@ -172,7 +172,7 @@ export default function ProductClient({ product }: ProductClientProps) {
               {product.tags.length > 0 && (
                 <div className="mt-6 flex flex-wrap gap-2">
                   {product.tags.map((tag) => (
-                    <span key={tag} className="text-[#a89880] text-[10px] tracking-widest uppercase border border-[#2e2820] px-2.5 py-1">
+                    <span key={tag} className="text-[#5b6573] text-[10px] tracking-widest uppercase border border-[#dde1e8] px-2.5 py-1">
                       {tag}
                     </span>
                   ))}

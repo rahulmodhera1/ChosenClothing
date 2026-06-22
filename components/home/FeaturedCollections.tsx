@@ -24,7 +24,7 @@ const collections: CollectionCard[] = [
     subtitle: "The signature set. Heavy cotton. Built to last.",
     image: "/images/collections/brown-cargo-set.jpg",
     badge: "10% off first order",
-    badgeColor: "bg-[#c4a882] text-[#0f0d0b]",
+    badgeColor: "bg-[#8a98ad] text-white",
     href: "/collections/brown-cargo-set",
   },
   {
@@ -33,7 +33,7 @@ const collections: CollectionCard[] = [
     subtitle: "New look. Raw materials. Rhinestone finish.",
     image: "/images/collections/rhinestone-tracksuit.jpg",
     badge: "New Arrivals",
-    badgeColor: "bg-[#f0ebe3] text-[#0f0d0b]",
+    badgeColor: "bg-white text-[#14171c]",
     href: "/collections/washed-rhinestone-tracksuit",
   },
 ];
@@ -50,8 +50,8 @@ export default function FeaturedCollections() {
         transition={{ duration: 0.6, ease: easeOut }}
         className="mb-10"
       >
-        <p className="text-[#a89880] text-xs tracking-[0.3em] uppercase mb-2">Collections</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-[#f0ebe3] tracking-wider">SHOP THE LOOK</h2>
+        <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Collections</p>
+        <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider">SHOP THE LOOK</h2>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -82,11 +82,11 @@ export default function FeaturedCollections() {
 
               {/* Text */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-display text-2xl sm:text-3xl text-[#f0ebe3] tracking-wider leading-tight">
+                <h3 className="font-display text-2xl sm:text-3xl text-white tracking-wider leading-tight">
                   {col.title.toUpperCase()}
                 </h3>
-                <p className="text-[#a89880] text-sm mt-1 leading-relaxed">{col.subtitle}</p>
-                <span className="inline-block mt-4 text-[#c4a882] text-xs tracking-widest uppercase border-b border-[#c4a882] pb-0.5 group-hover:text-[#f0ebe3] group-hover:border-[#f0ebe3] transition-colors">
+                <p className="text-white/75 text-sm mt-1 leading-relaxed">{col.subtitle}</p>
+                <span className="inline-block mt-4 text-white/90 text-xs tracking-widest uppercase border-b border-white/50 pb-0.5 group-hover:text-white group-hover:border-white transition-colors">
                   Shop Collection
                 </span>
               </div>
