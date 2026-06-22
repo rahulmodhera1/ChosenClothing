@@ -6,63 +6,66 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
 import { easeOut } from "@/lib/motion";
 
+// Shared framing + grade so the still overlay lands pixel-perfect on the video's
+// final frame and the fade is imperceptible.
+const FRAME = "absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top";
+const GRADE = "contrast(1.12) saturate(1.1) brightness(1.06)";
+
 export default function HeroSection() {
   const [videoEnded, setVideoEnded] = useState(false);
   const [logoMissing, setLogoMissing] = useState(false);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
+    <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
       {/* Video background. Slightly taller than the hero, anchored to the top, so
-          the lower portion shows (logo sits higher, not pinned to the bottom)
-          while the very bottom-right watermark is pushed into the dark corner.
-          Filter sharpens/brightens the chrome logo so it pops. */}
+          the logo sits higher and the bottom-right watermark falls into the dark
+          corner. The overlay below shares this exact framing + grade. */}
       <video
         autoPlay
         muted
+        loop={false}
         playsInline
         poster={HERO_VIDEO_POSTER}
         onEnded={() => setVideoEnded(true)}
-        className="absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top"
-        style={{ filter: "contrast(1.12) saturate(1.1) brightness(1.06)" }}
+        className={FRAME}
+        style={{ filter: GRADE }}
         aria-hidden="true"
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
-      {/* Base gradient — light in the middle so the logo shows through, dark at the
-          bottom to seat the content and bury the corner watermark. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-black/90" />
-
-      {/* Top header band — reduces the open sky and frames the navigation. */}
-      <div className="absolute inset-x-0 top-0 h-[38%] z-[5] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
-
-      {/* Soft vignette over the baked-in bottom-right watermark (now tucked in the
-          darkest corner, so it reads as a natural vignette rather than a patch). */}
-      <div
-        className="absolute bottom-0 right-0 w-72 h-56 z-[6] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at bottom right, #0f0d0b 0%, #0f0d0b 42%, transparent 75%)" }}
-      />
-
-      {/* Crisp chrome logo — fades in over the video's final frame when it ends */}
+      {/* Crisp chrome logo — same framing + grade as the video, so it lines up
+          exactly with the video's final frame. Opacity-only fade = seamless. */}
       <AnimatePresence>
         {videoEnded && !logoMissing && (
-          <motion.div
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <motion.img
             key="logo"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: easeOut }}
-            className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/chosen-logo.png"
-              alt="Chosen"
-              onError={() => setLogoMissing(true)}
-              className="w-full h-auto drop-shadow-[0_0_60px_rgba(180,200,255,0.18)]"
-            />
-          </motion.div>
+            src="/images/chosen-hero-overlay.png"
+            alt="Chosen"
+            onError={() => setLogoMissing(true)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.6, ease: easeOut }}
+            className={`${FRAME} z-10 pointer-events-none`}
+            style={{ filter: GRADE }}
+            aria-hidden="true"
+          />
         )}
       </AnimatePresence>
+
+      {/* Base gradient — light in the middle so the logo shows through, dark at the
+          bottom to seat the content and bury the corner watermark. */}
+      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/55 via-black/20 to-black/90" />
+
+      {/* Top header band — reduces the open sky and frames the navigation. */}
+      <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
+
+      {/* Soft vignette over the baked-in bottom-right watermark. */}
+      <div
+        className="absolute bottom-0 right-0 w-72 h-56 z-[12] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at bottom right, #0f0d0b 0%, #0f0d0b 42%, transparent 75%)" }}
+      />
 
       {/* Bottom content */}
       <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center text-center px-4 pb-16 sm:pb-20">
