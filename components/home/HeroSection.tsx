@@ -1,19 +1,24 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
 import { easeOut, easeInOut } from "@/lib/motion";
 
 export default function HeroSection() {
+  const [videoEnded, setVideoEnded] = useState(false);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
       {/* Video background */}
       <video
         autoPlay
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
+        onEnded={() => setVideoEnded(true)}
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden="true"
       >
@@ -23,37 +28,42 @@ export default function HeroSection() {
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4">
+      {/* Chrome logo — fades in over the video's final frame when it ends */}
+      <AnimatePresence>
+        {videoEnded && (
+          <motion.div
+            key="logo"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, ease: easeOut }}
+            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+          >
+            <Image
+              src="/images/chosen-logo.png"
+              alt="Chosen"
+              width={700}
+              height={350}
+              className="w-[min(75vw,700px)] h-auto drop-shadow-[0_0_80px_rgba(255,255,255,0.15)]"
+              priority
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Bottom content */}
+      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center text-center px-4 pb-20 sm:pb-24">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: easeOut }}
-          className="text-[#c4a882] text-xs tracking-[0.3em] uppercase mb-4"
-        >
-          Toronto Streetwear
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease: easeOut }}
-          className="font-display text-[clamp(5rem,15vw,14rem)] leading-none text-[#f0ebe3] tracking-widest"
-        >
-          CHOSEN
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55, ease: easeOut }}
-          className="text-[#a89880] text-sm tracking-[0.4em] uppercase mt-2"
+          transition={{ duration: 0.7, delay: 0.3, ease: easeOut }}
+          className="text-[#a89880] text-xs tracking-[0.4em] uppercase mb-6"
         >
           #OneInAMillion
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.75, ease: easeOut }}
-          className="mt-10"
+          transition={{ duration: 0.7, delay: 0.55, ease: easeOut }}
         >
           <Link
             href="/shop"
@@ -69,10 +79,9 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.7 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 right-8 flex flex-col items-center gap-2 z-20"
         aria-hidden="true"
       >
-        <span className="text-[#a89880] text-[10px] tracking-[0.3em] uppercase">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: easeInOut }}
