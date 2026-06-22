@@ -14,6 +14,11 @@
 
   --font-display: "Impact", "Arial Narrow", sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Strong custom easing curves. Built-in easings are too weak. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 *, *::before, *::after {
@@ -37,15 +42,63 @@ body {
   color: #0f0d0b;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0f0d0b; }
-::-webkit-scrollbar-thumb { background: #2e2820; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0d0b;
+}
+::-webkit-scrollbar-thumb {
+  background: #2e2820;
+  border-radius: 3px;
+}
 
-img { display: block; max-width: 100%; }
+img {
+  display: block;
+  max-width: 100%;
+}
 
 .font-display {
   font-family: "Impact", "Arial Narrow", sans-serif;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+/*
+ * Press feedback for pressable elements. Explicit properties only (never `all`),
+ * GPU-friendly transform, strong ease-out. The subtle scale on :active makes the
+ * UI feel like it is truly listening to the user.
+ */
+.press {
+  transition-property: transform, background-color, border-color, color, opacity, filter;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out);
+}
+
+.press:active {
+  transform: scale(0.97);
+}
+
+/*
+ * Reduced motion: gentler, not zero. Keep opacity/color, drop movement and the
+ * press scale. Framer components are additionally handled by MotionConfig.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .press {
+    transition-property: background-color, border-color, color, opacity;
+  }
+
+  .press:active {
+    transform: none;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
