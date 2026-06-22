@@ -61,8 +61,11 @@ export default function HeroSection() {
       {/* Chosen logo — present from the start with a refined, continuous life:
           a clean entrance, a softly breathing glow, a recurring shine, and a
           gentle float. Smooth and premium — no flash, no bounce. */}
+      {/* The star sits at 53.3% of the logo's width, so we offset the translate to
+          center the star (not the image) on the viewport — aligning it with the
+          centered CN Tower behind it. */}
       {!logoMissing && (
-        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-[53.3%] -translate-y-1/2">
           {/* Moonlit halo — fades in, then breathes continuously for life */}
           <motion.div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%]"
