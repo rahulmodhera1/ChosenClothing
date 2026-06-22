@@ -234,15 +234,53 @@ export default function HeroSection() {
 
       {/* Bottom content — larger, editorial, futuristic */}
       <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-28 sm:pb-36 gap-9 sm:gap-11">
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.3, delay: 0.4, ease: easeOut }}
-          className="text-white text-2xl sm:text-4xl md:text-5xl tracking-[0.35em] sm:tracking-[0.45em] uppercase font-semibold"
-          style={{ textShadow: "0 0 40px rgba(255,255,255,0.35), 0 2px 20px rgba(0,0,0,0.8)" }}
-        >
-          One in a Million
-        </motion.p>
+        {/* Signature tagline — metallic chrome with a slow travelling shimmer,
+            flanked by hairline rules that draw outward on entrance. */}
+        <div className="flex items-center gap-4 sm:gap-7">
+          <motion.span
+            aria-hidden="true"
+            className="hidden sm:block h-px w-8 md:w-16 origin-right bg-gradient-to-r from-transparent to-white/55"
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 1.4, delay: 0.6, ease: easeOut }}
+          />
+          <motion.h2
+            initial={{ opacity: 0, y: 14, letterSpacing: "0.6em" }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              letterSpacing: "0.35em",
+              backgroundPosition: ["200% 0%", "-40% 0%"],
+            }}
+            transition={{
+              opacity: { duration: 1.3, delay: 0.4, ease: easeOut },
+              y: { duration: 1.3, delay: 0.4, ease: easeOut },
+              letterSpacing: { duration: 1.6, delay: 0.4, ease: easeOut },
+              backgroundPosition: { duration: 6.5, delay: 1.4, ease: "linear", repeat: Infinity, repeatDelay: 1.2 },
+            }}
+            className="text-center text-xl sm:text-4xl md:text-5xl uppercase font-semibold"
+            style={{
+              backgroundImage:
+                "linear-gradient(110deg, #9aa3b2 0%, #ffffff 22%, #f3eee6 38%, #ffffff 50%, #d8c4a4 60%, #ffffff 74%, #9aa3b2 100%)",
+              backgroundSize: "220% 100%",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+              filter:
+                "drop-shadow(0 2px 16px rgba(0,0,0,0.75)) drop-shadow(0 0 30px rgba(216,196,164,0.28))",
+            }}
+          >
+            One in a Million
+          </motion.h2>
+          <motion.span
+            aria-hidden="true"
+            className="hidden sm:block h-px w-8 md:w-16 origin-left bg-gradient-to-l from-transparent to-white/55"
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 1.4, delay: 0.6, ease: easeOut }}
+          />
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
