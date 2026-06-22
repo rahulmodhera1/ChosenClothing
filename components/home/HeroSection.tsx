@@ -12,14 +12,16 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
-      {/* Video background — filter sharpens/brightens the chrome logo so it pops */}
+      {/* Video background — taller than the hero and anchored to the top so the
+          bottom strip (which carries the baked-in watermark) is cropped off.
+          Filter sharpens/brightens the chrome logo so it pops. */}
       <video
         autoPlay
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
         onEnded={() => setVideoEnded(true)}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-x-0 top-0 w-full h-[122%] object-cover object-top"
         style={{ filter: "contrast(1.12) saturate(1.1) brightness(1.06)" }}
         aria-hidden="true"
       >
@@ -29,12 +31,6 @@ export default function HeroSection() {
       {/* Gradient overlay — lighter in the center so the logo shows through brighter */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/85" />
 
-      {/* Solid cover over the baked-in bottom-right watermark */}
-      <div
-        className="absolute bottom-0 right-0 w-56 h-56 z-10 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at bottom right, #0f0d0b 0%, #0f0d0b 45%, transparent 80%)" }}
-      />
-
       {/* Crisp chrome logo — fades in over the video's final frame when it ends */}
       <AnimatePresence>
         {videoEnded && !logoMissing && (
@@ -43,7 +39,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: easeOut }}
-            className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
+            className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-[clamp(320px,55vw,820px)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
