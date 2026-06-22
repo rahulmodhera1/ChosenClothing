@@ -48,7 +48,7 @@ function CollectionMedia({ images, alt }: { images: string[]; alt: string }) {
     if (images.length < 2) return;
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % images.length);
-    }, 4000);
+    }, 7000);
     return () => clearInterval(id);
   }, [images.length]);
 
@@ -60,7 +60,7 @@ function CollectionMedia({ images, alt }: { images: string[]; alt: string }) {
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1 }}
-          transition={{ opacity: { duration: 1.4, ease: easeOut }, scale: { duration: 6, ease: easeOut } }}
+          transition={{ opacity: { duration: 2.2, ease: easeOut }, scale: { duration: 9, ease: easeOut } }}
           className="absolute inset-0"
         >
           <Image
