@@ -15,13 +15,17 @@ const GRADE = "contrast(1.08) saturate(0.82) brightness(0.9)";
 
 // Reveal the stars once the drone reaches the sky — the last stretch of footage.
 const STARS_LEAD = 2.5;
+// The deepening grade ramps in gradually across the final stretch of footage,
+// tracking the camera as it tilts up — not a sudden switch at the very end.
+const GRADE_FADE_WINDOW = 9;
 
 export default function HeroSection() {
   const [logoMissing, setLogoMissing] = useState(false);
-  // The sky reveal drives both the starfield and the deepening gradient: the
-  // frame stays light while the drone races through the city, then darkens as
-  // the camera tilts up to the open sky.
+  // The starfield appears once the drone reaches the open sky.
   const [skyReached, setSkyReached] = useState(false);
+  // The deepening gradient tracks video progress (0 → 1) so it ramps in
+  // smoothly as the camera climbs, rather than snapping on near the end.
+  const [gradeProgress, setGradeProgress] = useState(0);
   const armedRef = useRef(false);
 
   const revealSky = () => {
@@ -30,9 +34,13 @@ export default function HeroSection() {
     setSkyReached(true);
   };
 
-  // Fallback: if the video never plays (blocked autoplay), still reveal the sky.
+  // Fallback: if the video never plays (blocked autoplay), settle into the
+  // final graded state anyway.
   useEffect(() => {
-    const t = setTimeout(revealSky, 8000);
+    const t = setTimeout(() => {
+      revealSky();
+      setGradeProgress(1);
+    }, 8000);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,9 +55,17 @@ export default function HeroSection() {
         poster={HERO_VIDEO_POSTER}
         onTimeUpdate={(e) => {
           const v = e.currentTarget;
-          if (v.duration && v.currentTime >= v.duration - STARS_LEAD) revealSky();
+          if (!v.duration) return;
+          if (v.currentTime >= v.duration - STARS_LEAD) revealSky();
+          // Ramp the grade across the final window, easing 0 → 1.
+          const start = v.duration - GRADE_FADE_WINDOW;
+          const p = Math.min(1, Math.max(0, (v.currentTime - start) / GRADE_FADE_WINDOW));
+          setGradeProgress(p);
         }}
-        onEnded={revealSky}
+        onEnded={() => {
+          revealSky();
+          setGradeProgress(1);
+        }}
         className={FRAME}
         style={{ filter: GRADE }}
         aria-hidden="true"
@@ -65,13 +81,14 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Deepening grade — fades in as the camera tilts up to the open sky,
-          pulling the frame into a darker, cinematic mood for the held finale. */}
+      {/* Deepening grade — ramps in gradually as the camera tilts up to the
+          open sky, pulling the frame into a darker, cinematic mood for the
+          held finale. Opacity tracks video progress for a continuous fade. */}
       <motion.div
         className="absolute inset-0 z-[11] pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={{ opacity: skyReached ? 1 : 0 }}
-        transition={{ duration: 3, ease: easeOut }}
+        animate={{ opacity: gradeProgress }}
+        transition={{ duration: 0.4, ease: "linear" }}
       >
         {/* Heavy vignette — pulls the sky back so the logo owns the frame */}
         <div className="absolute inset-0"
