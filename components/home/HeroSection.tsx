@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
@@ -13,10 +13,27 @@ const FRAME = "absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top"
 // Desaturate slightly so the video reads as cinematic backdrop, not focal point.
 const GRADE = "contrast(1.08) saturate(0.82) brightness(0.9)";
 
+// Reveal the stars once the drone reaches the sky — the last stretch of footage.
+const STARS_LEAD = 2.5;
+
 export default function HeroSection() {
   const [logoMissing, setLogoMissing] = useState(false);
-  // Logo + stars reveal from the start, over the opening footage.
-  const revealed = true;
+  // Stars hold off until the sky shows; the logo is present from the start.
+  const [starsVisible, setStarsVisible] = useState(false);
+  const armedRef = useRef(false);
+
+  const showStars = () => {
+    if (armedRef.current) return;
+    armedRef.current = true;
+    setStarsVisible(true);
+  };
+
+  // Fallback: if the video never plays (blocked autoplay), still show the stars.
+  useEffect(() => {
+    const t = setTimeout(showStars, 8000);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-[#080a10]">
@@ -26,6 +43,11 @@ export default function HeroSection() {
         muted
         playsInline
         poster={HERO_VIDEO_POSTER}
+        onTimeUpdate={(e) => {
+          const v = e.currentTarget;
+          if (v.duration && v.currentTime >= v.duration - STARS_LEAD) showStars();
+        }}
+        onEnded={showStars}
         className={FRAME}
         style={{ filter: GRADE }}
         aria-hidden="true"
@@ -43,9 +65,9 @@ export default function HeroSection() {
       {/* Top-to-bottom cinematic grade */}
       <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-[#080a10]/80 via-transparent to-[#080a10]/95" />
 
-      {/* Animated starfield */}
+      {/* Animated starfield — fades in once the drone reaches the sky */}
       <AnimatePresence>
-        {revealed && (
+        {starsVisible && (
           <motion.div
             key="stars"
             initial={{ opacity: 0 }}
@@ -65,7 +87,7 @@ export default function HeroSection() {
           center the star (not the image) on the viewport — aligning it with the
           centered CN Tower behind it. */}
       {!logoMissing && (
-        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-[53.3%] -translate-y-1/2">
+        <div className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[38%] -translate-x-[53.3%] -translate-y-1/2">
           {/* Moonlit halo — fades in, then breathes continuously for life */}
           <motion.div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%]"
@@ -134,7 +156,7 @@ export default function HeroSection() {
       )}
 
       {/* Bottom content — larger, editorial, futuristic */}
-      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-16 sm:pb-24 gap-9 sm:gap-11">
+      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-28 sm:pb-36 gap-9 sm:gap-11">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
