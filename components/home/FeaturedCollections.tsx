@@ -22,10 +22,7 @@ const collections: CollectionCard[] = [
     handle: "brown-cargo-set",
     title: "Brown Cargo Set",
     subtitle: "The signature set. Heavy cotton. Built to last.",
-    images: [
-      "/images/collections/Cargo/1.png",
-      "/images/collections/Cargo/2.png",
-    ],
+    images: ["/images/collections/Cargo/2.png"],
     badge: "10% off first order",
     badgeColor: "bg-[#8a98ad] text-white",
     href: "/collections/brown-cargo-set",
@@ -35,8 +32,8 @@ const collections: CollectionCard[] = [
     title: "Washed Rhinestone Tracksuit",
     subtitle: "New look. Raw materials. Rhinestone finish.",
     images: [
-      "/images/collections/Rhinestone/1.png",
       "/images/collections/Rhinestone/2.png",
+      "/images/collections/Rhinestone/1.png",
     ],
     badge: "New Arrivals",
     badgeColor: "bg-white text-[#14171c]",
