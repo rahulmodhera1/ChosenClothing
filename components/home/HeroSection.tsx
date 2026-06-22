@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_VIDEO_SRC, HERO_VIDEO_POSTER } from "@/lib/config";
 import { easeOut, easeInOut } from "@/lib/motion";
+import Starfield from "./Starfield";
 
 const LOGO_SRC = "/images/ChosenLogo.png";
 
@@ -45,6 +46,22 @@ export default function HeroSection() {
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
+
+      {/* Animated starfield — fades in as the footage settles so the held sky
+          keeps twinkling and drifting instead of freezing on a still. */}
+      <AnimatePresence>
+        {revealed && (
+          <motion.div
+            key="stars"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5, ease: easeOut }}
+            className="absolute inset-0 z-[13] pointer-events-none"
+          >
+            <Starfield />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Dark gradient — light in the middle, heavy at top and bottom */}
       <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/20 to-black/90" />

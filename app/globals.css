@@ -81,6 +81,34 @@ img {
 }
 
 /*
+ * Hero starfield. Once the drone footage holds on the sky, a generated layer of
+ * stars keeps the frame alive — each star twinkles on its own offset, and the
+ * whole field drifts slowly so it never looks like a frozen still.
+ */
+@keyframes star-twinkle {
+  0%, 100% { opacity: var(--star-min, 0.2); transform: scale(0.85); }
+  50%      { opacity: var(--star-max, 1);   transform: scale(1); }
+}
+
+@keyframes star-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-1.2%, -1.6%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.star-field {
+  animation: star-drift 60s ease-in-out infinite;
+}
+
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: #fffdf7;
+  animation: star-twinkle var(--star-dur, 4s) ease-in-out var(--star-delay, 0s) infinite;
+  will-change: opacity, transform;
+}
+
+/*
  * Reduced motion: gentler, not zero. Keep opacity/color, drop movement and the
  * press scale. Framer components are additionally handled by MotionConfig.
  */
