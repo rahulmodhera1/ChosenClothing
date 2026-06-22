@@ -31,10 +31,7 @@ const collections: CollectionCard[] = [
     handle: "washed-rhinestone-tracksuit",
     title: "Washed Rhinestone Tracksuit",
     subtitle: "New look. Raw materials. Rhinestone finish.",
-    images: [
-      "/images/collections/Rhinestone/2.png",
-      "/images/collections/Rhinestone/1.png",
-    ],
+    images: ["/images/collections/Rhinestone/2.png"],
     badge: "New Arrivals",
     badgeColor: "bg-white text-[#14171c]",
     href: "/collections/washed-rhinestone-tracksuit",
