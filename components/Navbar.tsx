@@ -36,9 +36,21 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
           scrolled
             ? "bg-[#0f0d0b]/95 backdrop-blur-md border-b border-[#2e2820]"
-            : "bg-transparent"
+            : "backdrop-blur-[2px] border-b border-white/[0.06]"
         }`}
       >
+        {/* Gradient scrim — covers the stars behind the header, then melts into
+            the hero. Only shown before scroll, where the solid bar takes over. */}
+        {!scrolled && (
+          <div
+            className="absolute inset-x-0 top-0 h-32 -z-10 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(8,10,16,0.92) 0%, rgba(8,10,16,0.82) 30%, rgba(8,10,16,0.5) 60%, rgba(8,10,16,0.2) 85%, transparent 100%)",
+            }}
+            aria-hidden="true"
+          />
+        )}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
