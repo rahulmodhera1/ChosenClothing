@@ -33,30 +33,16 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-          scrolled
-            ? "bg-[#0f0d0b]/95 backdrop-blur-md border-b border-[#2e2820]"
-            : "backdrop-blur-[2px] border-b border-white/[0.06]"
+        className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10 transition-shadow duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+          scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : ""
         }`}
       >
-        {/* Gradient scrim — covers the stars behind the header, then melts into
-            the hero. Only shown before scroll, where the solid bar takes over. */}
-        {!scrolled && (
-          <div
-            className="absolute inset-x-0 top-0 h-32 -z-10 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(8,10,16,0.92) 0%, rgba(8,10,16,0.82) 30%, rgba(8,10,16,0.5) 60%, rgba(8,10,16,0.2) 85%, transparent 100%)",
-            }}
-            aria-hidden="true"
-          />
-        )}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link
               href="/"
-              className="font-display text-2xl text-white tracking-widest hover:text-[#c4a882] transition-colors"
+              className="font-display text-2xl text-[#0f0d0b] tracking-widest hover:text-[#c4a882] transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               CHOSEN
@@ -68,7 +54,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-white hover:text-[#c4a882] transition-colors tracking-wider uppercase"
+                  className="text-sm font-medium text-[#0f0d0b] hover:text-[#c4a882] transition-colors tracking-wider uppercase"
                 >
                   {link.label}
                 </Link>
@@ -81,7 +67,7 @@ export default function Navbar() {
               <button
                 onClick={openCart}
                 aria-label={`Open cart, ${totalQuantity} items`}
-                className="relative text-white hover:text-[#c4a882] transition-colors"
+                className="relative text-[#0f0d0b] hover:text-[#c4a882] transition-colors"
               >
                 <svg
                   width="22"
@@ -106,7 +92,7 @@ export default function Navbar() {
 
               {/* Hamburger */}
               <button
-                className="md:hidden text-white hover:text-[#c4a882] transition-colors"
+                className="md:hidden text-[#0f0d0b] hover:text-[#c4a882] transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
