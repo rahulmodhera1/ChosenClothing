@@ -91,8 +91,8 @@ img {
 }
 
 @keyframes star-shine {
-  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
-  50%      { opacity: 0.95; transform: translate(-50%, -50%) scale(1) rotate(45deg); }
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  50%      { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
 }
 
 .star {
@@ -103,8 +103,6 @@ img {
   will-change: opacity, transform;
 }
 
-/* Accent stars get a crossing light flare that flickers on, so they read as
-   shining/sparkling rather than just fading. */
 .star-bright::before,
 .star-bright::after {
   content: "";
@@ -117,15 +115,15 @@ img {
 }
 
 .star-bright::before {
-  width: 22px;
-  height: 1.5px;
-  background: linear-gradient(to right, transparent, #fffdf7 50%, transparent);
+  width: 14px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,253,247,0.8) 50%, transparent);
 }
 
 .star-bright::after {
-  width: 1.5px;
-  height: 22px;
-  background: linear-gradient(to bottom, transparent, #fffdf7 50%, transparent);
+  width: 1px;
+  height: 14px;
+  background: linear-gradient(to bottom, transparent, rgba(255,253,247,0.8) 50%, transparent);
 }
 
 /*

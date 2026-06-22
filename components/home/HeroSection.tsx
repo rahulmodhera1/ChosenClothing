@@ -10,10 +10,9 @@ import Starfield from "./Starfield";
 const LOGO_SRC = "/images/ChosenLogo.png";
 
 const FRAME = "absolute inset-x-0 top-0 w-full h-[115%] object-cover object-top";
-const GRADE = "contrast(1.12) saturate(1.1) brightness(1.06)";
+// Desaturate slightly so the video reads as cinematic backdrop, not focal point.
+const GRADE = "contrast(1.08) saturate(0.82) brightness(0.9)";
 
-// Reveal the logo this many seconds before the footage ends, so it lands while
-// the drone is still settling on the sky rather than after a dead cut.
 const REVEAL_LEAD = 1.5;
 
 export default function HeroSection() {
@@ -27,8 +26,6 @@ export default function HeroSection() {
     setRevealed(true);
   };
 
-  // Fallback: if the video never plays (mobile autoplay blocked, slow network, etc.)
-  // still reveal the logo after 5 s so the hero is never blank.
   useEffect(() => {
     const t = setTimeout(reveal, 5000);
     return () => clearTimeout(t);
@@ -36,7 +33,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden flex items-center justify-center bg-[#0f0d0b]">
+    <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-[#080a10]">
       {/* Drone video — plays once, holds on final frame */}
       <video
         autoPlay
@@ -55,62 +52,59 @@ export default function HeroSection() {
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
-      {/* Animated starfield — fades in as the footage settles so the held sky
-          keeps twinkling and drifting instead of freezing on a still. */}
+      {/* Heavy vignette — pulls the sky back so the logo owns the frame */}
+      <div className="absolute inset-0 z-[10] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 80% at 50% 40%, transparent 20%, rgba(8,10,16,0.55) 60%, rgba(8,10,16,0.92) 100%)"
+        }}
+      />
+
+      {/* Top-to-bottom cinematic grade */}
+      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-[#080a10]/80 via-transparent to-[#080a10]/95" />
+
+      {/* Animated starfield */}
       <AnimatePresence>
         {revealed && (
           <motion.div
             key="stars"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2.5, ease: easeOut }}
-            className="absolute inset-0 z-[13] pointer-events-none"
+            transition={{ duration: 3, ease: easeOut }}
+            className="absolute inset-0 z-[12] pointer-events-none"
           >
             <Starfield />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Dark gradient — light in the middle, heavy at top and bottom */}
-      <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/20 to-black/90" />
-
-      {/* Top header band */}
-      <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
-
-      {/* Chosen logo — chrome centerpiece. A calm, confident reveal: the mark eases
-          up into focus, a single soft glint passes across the metal, and it breathes
-          with a slow float. No flash, no bounce. */}
+      {/* Chosen logo */}
       <AnimatePresence>
         {revealed && !logoMissing && (
           <div
             key="logo"
-            className="absolute z-[20] pointer-events-none w-[84%] sm:w-[64%] md:w-[52%] lg:w-[44%] max-w-[660px] left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-[20] pointer-events-none w-[80%] sm:w-[60%] md:w-[48%] lg:w-[40%] max-w-[620px] left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2"
           >
-            {/* Float wrapper — slow vertical breathing once it has landed */}
             <motion.div
-              animate={{ y: [0, -7, 0] }}
-              transition={{ duration: 8, ease: easeInOut, repeat: Infinity, delay: 1.8 }}
-              style={{ filter: "drop-shadow(0 0 48px rgba(196,168,130,0.22)) drop-shadow(0 8px 30px rgba(0,0,0,0.78))" }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 9, ease: easeInOut, repeat: Infinity, delay: 2 }}
+              style={{ filter: "drop-shadow(0 0 60px rgba(160,180,220,0.18)) drop-shadow(0 12px 40px rgba(0,0,0,0.9))" }}
             >
-              {/* Base chrome — eases up into focus, no overshoot */}
               <motion.img
                 src={LOGO_SRC}
                 alt="Chosen"
                 onError={() => setLogoMissing(true)}
-                initial={{ opacity: 0, scale: 1.04, y: 14, filter: "blur(12px)" }}
-                animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                initial={{ opacity: 0, scale: 1.04, filter: "blur(14px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{
-                  duration: 1.9,
+                  duration: 2.2,
                   ease: easeOut,
-                  opacity: { duration: 1.1 },
-                  filter: { duration: 1.4 },
+                  opacity: { duration: 1.4 },
+                  filter: { duration: 1.6 },
                 }}
                 className="w-full h-auto block"
                 aria-hidden="true"
               />
-
-              {/* Specular shine — a bright band sweeping left → right across the
-                  chrome shape, recurring so the metal keeps catching the light */}
+              {/* Left-to-right shine */}
               <motion.div
                 className="absolute inset-0"
                 style={{
@@ -123,56 +117,41 @@ export default function HeroSection() {
                   maskPosition: "center",
                   WebkitMaskPosition: "center",
                   background:
-                    "linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.55) 46%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.55) 54%, transparent 62%)",
+                    "linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.38) 47%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.38) 53%, transparent 60%)",
                   backgroundSize: "260% 100%",
                   mixBlendMode: "screen",
                 }}
                 initial={{ backgroundPosition: "-70% 0%" }}
                 animate={{ backgroundPosition: "170% 0%" }}
-                transition={{ duration: 1.6, delay: 1.2, ease: easeInOut, repeat: Infinity, repeatDelay: 3.5 }}
+                transition={{ duration: 1.8, delay: 1.5, ease: easeInOut, repeat: Infinity, repeatDelay: 4 }}
               />
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
-      {/* Bottom content */}
-      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-4 pb-16 sm:pb-20">
-        <div className="flex items-center gap-4 sm:gap-6 mb-8">
-          {/* Left rule — draws outward from the text */}
-          <motion.span
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: easeOut }}
-            className="h-px w-6 xs:w-10 sm:w-20 shrink-0 origin-right bg-gradient-to-r from-transparent to-[#c4a882]"
-          />
-          {/* Tagline — settles from wide to tight tracking */}
-          <motion.span
-            initial={{ opacity: 0, y: 16, letterSpacing: "0.5em" }}
-            animate={{ opacity: 1, y: 0, letterSpacing: "0.22em" }}
-            transition={{ duration: 1.1, delay: 0.3, ease: easeOut }}
-            className="font-display font-bold text-[#f0ebe3] text-base sm:text-2xl md:text-3xl uppercase leading-none"
-          >
-            One in a Million
-          </motion.span>
-          {/* Right rule — draws outward from the text */}
-          <motion.span
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: easeOut }}
-            className="h-px w-6 xs:w-10 sm:w-20 shrink-0 origin-left bg-gradient-to-l from-transparent to-[#c4a882]"
-          />
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
+      {/* Bottom content — refined, editorial */}
+      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-14 sm:pb-20 gap-7">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.7, ease: easeOut }}
+          transition={{ duration: 1.2, delay: 0.4, ease: easeOut }}
+          className="text-white/50 text-[10px] sm:text-[11px] tracking-[0.55em] uppercase font-light"
+        >
+          One in a Million
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.7, ease: easeOut }}
         >
           <Link
             href="/shop"
-            className="press inline-block bg-transparent border border-[#f0ebe3] text-[#f0ebe3] hover:bg-[#f0ebe3] hover:text-[#0f0d0b] font-display text-sm tracking-[0.25em] px-10 py-4"
+            className="press group relative inline-flex items-center gap-3 text-white/80 hover:text-white font-light text-[11px] tracking-[0.4em] uppercase transition-colors duration-300"
           >
-            SHOP NOW
+            <span className="h-px w-8 bg-white/30 group-hover:bg-white/70 group-hover:w-10 transition-all duration-500" />
+            Shop the Collection
+            <span className="h-px w-8 bg-white/30 group-hover:bg-white/70 group-hover:w-10 transition-all duration-500" />
           </Link>
         </motion.div>
       </div>
