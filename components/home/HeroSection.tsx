@@ -101,8 +101,8 @@ export default function HeroSection() {
                 aria-hidden="true"
               />
 
-              {/* Specular glint — a single soft band drifting across the chrome,
-                  then quietly recurring on a long interval to keep the metal alive */}
+              {/* Specular shine — a bright band sweeping left → right across the
+                  chrome shape, recurring so the metal keeps catching the light */}
               <motion.div
                 className="absolute inset-0"
                 style={{
@@ -115,13 +115,13 @@ export default function HeroSection() {
                   maskPosition: "center",
                   WebkitMaskPosition: "center",
                   background:
-                    "linear-gradient(100deg, transparent 43%, rgba(255,255,255,0.45) 48%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.45) 52%, transparent 57%)",
+                    "linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.55) 46%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.55) 54%, transparent 62%)",
                   backgroundSize: "260% 100%",
                   mixBlendMode: "screen",
                 }}
-                initial={{ backgroundPosition: "180% 0%" }}
-                animate={{ backgroundPosition: "-80% 0%" }}
-                transition={{ duration: 1.8, delay: 1.4, ease: easeInOut, repeat: Infinity, repeatDelay: 7 }}
+                initial={{ backgroundPosition: "-70% 0%" }}
+                animate={{ backgroundPosition: "170% 0%" }}
+                transition={{ duration: 1.6, delay: 1.2, ease: easeInOut, repeat: Infinity, repeatDelay: 3.5 }}
               />
             </motion.div>
           </div>

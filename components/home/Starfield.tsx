@@ -13,33 +13,40 @@ function mulberry32(seed: number) {
   };
 }
 
-type Star = CSSProperties & {
-  "--star-dur": string;
-  "--star-delay": string;
-  "--star-min": number;
-  "--star-max": number;
+type Star = {
+  style: CSSProperties;
+  bright: boolean;
 };
 
-const COUNT = 70;
+const COUNT = 90;
+
+// Warm + cool whites so the field has depth instead of one flat tone.
+const TINTS = ["#fffdf7", "#fff", "#eaf2ff", "#fff4e6", "#f3ecff"];
 
 function buildStars(): Star[] {
   const rand = mulberry32(20240622);
   const stars: Star[] = [];
   for (let i = 0; i < COUNT; i++) {
     // Bias toward the upper sky; thin out near the bottom where the content sits.
-    const top = Math.pow(rand(), 1.4) * 78;
-    const size = 1 + rand() * 2.2;
-    const bright = rand();
+    const top = Math.pow(rand(), 1.5) * 80;
+    const brightness = rand();
+    const bright = brightness > 0.82; // ~18% get the sparkling cross-flare
+    const size = bright ? 2 + rand() * 1.8 : 0.8 + rand() * 1.8;
+    const tint = TINTS[Math.floor(rand() * TINTS.length)];
     stars.push({
-      left: `${rand() * 100}%`,
-      top: `${top}%`,
-      width: `${size}px`,
-      height: `${size}px`,
-      boxShadow: `0 0 ${2 + bright * 5}px rgba(255,253,247,${0.4 + bright * 0.5})`,
-      "--star-dur": `${3 + rand() * 5}s`,
-      "--star-delay": `${rand() * 6}s`,
-      "--star-min": 0.08 + rand() * 0.22,
-      "--star-max": 0.6 + bright * 0.4,
+      bright,
+      style: {
+        left: `${rand() * 100}%`,
+        top: `${top}%`,
+        width: `${size}px`,
+        height: `${size}px`,
+        background: tint,
+        boxShadow: `0 0 ${2 + brightness * 7}px rgba(255,253,247,${0.4 + brightness * 0.55})`,
+        ["--star-dur" as string]: `${(bright ? 2.5 : 3.5) + rand() * 5}s`,
+        ["--star-delay" as string]: `${rand() * 7}s`,
+        ["--star-min" as string]: 0.06 + rand() * 0.2,
+        ["--star-max" as string]: 0.6 + brightness * 0.4,
+      },
     });
   }
   return stars;
@@ -53,8 +60,8 @@ export default function Starfield() {
       style={{ mixBlendMode: "screen" }}
       aria-hidden="true"
     >
-      {stars.map((style, i) => (
-        <span key={i} className="star" style={style} />
+      {stars.map((s, i) => (
+        <span key={i} className={s.bright ? "star star-bright" : "star"} style={s.style} />
       ))}
     </div>
   );

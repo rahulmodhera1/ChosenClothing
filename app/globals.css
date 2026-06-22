@@ -100,12 +100,42 @@ img {
   animation: star-drift 60s ease-in-out infinite;
 }
 
+@keyframes star-shine {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+  50%      { opacity: 0.95; transform: translate(-50%, -50%) scale(1) rotate(45deg); }
+}
+
 .star {
   position: absolute;
   border-radius: 9999px;
   background: #fffdf7;
   animation: star-twinkle var(--star-dur, 4s) ease-in-out var(--star-delay, 0s) infinite;
   will-change: opacity, transform;
+}
+
+/* Accent stars get a crossing light flare that flickers on, so they read as
+   shining/sparkling rather than just fading. */
+.star-bright::before,
+.star-bright::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: star-shine var(--star-dur, 4s) ease-in-out var(--star-delay, 0s) infinite;
+  pointer-events: none;
+}
+
+.star-bright::before {
+  width: 22px;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, #fffdf7 50%, transparent);
+}
+
+.star-bright::after {
+  width: 1.5px;
+  height: 22px;
+  background: linear-gradient(to bottom, transparent, #fffdf7 50%, transparent);
 }
 
 /*
