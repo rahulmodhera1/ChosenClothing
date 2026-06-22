@@ -35,19 +35,19 @@ export default function HeroSection() {
       {/* Top header band */}
       <div className="absolute inset-x-0 top-0 h-[38%] z-[12] pointer-events-none bg-gradient-to-b from-[#0f0d0b] via-[#0f0d0b]/45 to-transparent" />
 
-      {/* Chosen logo — fades in after video ends, centered and prominent */}
+      {/* Chosen logo — chrome centerpiece, reveals after the drone footage holds on the sky */}
       <AnimatePresence>
         {videoEnded && !logoMissing && (
           <motion.img
             key="logo"
-            src="/images/chosen-hero-overlay.png"
+            src="/images/ChosenLogo.png"
             alt="Chosen"
             onError={() => setLogoMissing(true)}
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2.2, delay: 0.6, ease: easeOut }}
-            className="absolute z-[20] pointer-events-none w-[88%] sm:w-[64%] md:w-[52%] lg:w-[44%] max-w-[600px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{ filter: "drop-shadow(0 0 40px rgba(200,200,220,0.18)) drop-shadow(0 4px 24px rgba(0,0,0,0.7))" }}
+            initial={{ opacity: 0, scale: 0.94, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 2.2, delay: 0.5, ease: easeOut }}
+            className="absolute z-[20] pointer-events-none w-[82%] sm:w-[62%] md:w-[50%] lg:w-[42%] max-w-[620px] left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2"
+            style={{ filter: "drop-shadow(0 0 50px rgba(196,168,130,0.22)) drop-shadow(0 6px 28px rgba(0,0,0,0.75))" }}
             aria-hidden="true"
           />
         )}
