@@ -29,19 +29,6 @@ export default function HeroSection() {
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
-      {/* Fade-to-dark on video end */}
-      <AnimatePresence>
-        {videoEnded && (
-          <motion.div
-            key="fade"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: easeOut }}
-            className="absolute inset-0 z-[10] bg-[#0f0d0b] pointer-events-none"
-          />
-        )}
-      </AnimatePresence>
-
       {/* Dark gradient — light in the middle, heavy at top and bottom */}
       <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-black/60 via-black/20 to-black/90" />
 
