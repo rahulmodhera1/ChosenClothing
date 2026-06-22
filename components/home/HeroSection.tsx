@@ -28,6 +28,9 @@ export default function HeroSection() {
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90" />
 
+      {/* Cover bottom-right watermark */}
+      <div className="absolute bottom-0 right-0 w-40 h-40 z-10" style={{ background: 'radial-gradient(ellipse at bottom right, #000 30%, transparent 75%)' }} />
+
       {/* Chrome logo — fades in over the video's final frame when it ends */}
       <AnimatePresence>
         {videoEnded && (
@@ -73,21 +76,6 @@ export default function HeroSection() {
           </Link>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.7 }}
-        className="absolute bottom-8 right-8 flex flex-col items-center gap-2 z-20"
-        aria-hidden="true"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: easeInOut }}
-          className="w-px h-8 bg-gradient-to-b from-[#a89880] to-transparent"
-        />
-      </motion.div>
     </section>
   );
 }
