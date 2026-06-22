@@ -133,28 +133,40 @@ export default function HeroSection() {
         </div>
       )}
 
-      {/* Bottom content — refined, editorial */}
-      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-14 sm:pb-20 gap-7">
+      {/* Bottom content — larger, editorial, futuristic */}
+      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-16 sm:pb-24 gap-9 sm:gap-11">
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: easeOut }}
-          className="text-white/50 text-[10px] sm:text-[11px] tracking-[0.55em] uppercase font-light"
+          transition={{ duration: 1.3, delay: 0.4, ease: easeOut }}
+          className="text-white/75 text-base sm:text-xl md:text-2xl tracking-[0.45em] sm:tracking-[0.55em] uppercase font-light"
         >
           One in a Million
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.7, ease: easeOut }}
+          transition={{ duration: 1.3, delay: 0.7, ease: easeOut }}
         >
           <Link
             href="/shop"
-            className="press group relative inline-flex items-center gap-3 text-white/80 hover:text-white font-light text-[11px] tracking-[0.4em] uppercase transition-colors duration-300"
+            className="press group inline-flex items-center gap-4 rounded-full border border-white/25 bg-white/[0.06] backdrop-blur-md px-9 py-4 sm:px-12 sm:py-5 text-white text-xs sm:text-sm tracking-[0.3em] uppercase font-light transition-all duration-300 hover:border-white/60 hover:bg-white/[0.13]"
           >
-            <span className="h-px w-8 bg-white/30 group-hover:bg-white/70 group-hover:w-10 transition-all duration-500" />
             Shop the Collection
-            <span className="h-px w-8 bg-white/30 group-hover:bg-white/70 group-hover:w-10 transition-all duration-500" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
         </motion.div>
       </div>
