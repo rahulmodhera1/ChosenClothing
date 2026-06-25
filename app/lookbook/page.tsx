@@ -80,7 +80,7 @@ export default function LookbookPage() {
           Four portrait shots fill the full viewport height side by side.
           Massive LOOKBOOK type sits centred across all panels so the photos
           bleed through the letters — classic fashion-editorial opening spread. */}
-      <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+      <section className="relative h-[74vh] min-h-[480px] max-h-[820px] w-full overflow-hidden">
 
         {/* Panels */}
         <div className="absolute inset-0 flex pt-14">
