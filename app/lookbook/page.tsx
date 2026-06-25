@@ -61,12 +61,13 @@ const IMAGES = [
   alt: `Chosen — Look ${img.n}`,
 }));
 
-// Four hero panels — spread across the full width, different shots
+// Four hero panels. Each gets its own focal point so the subject is framed
+// correctly inside the tall, narrow panel regardless of the shot's framing.
 const HERO_PANELS = [
-  "/images/lookbook/03.png",
-  "/images/lookbook/06.png",
-  "/images/lookbook/09.png",
-  "/images/lookbook/12.png",
+  { src: "/images/lookbook/13.png", pos: "object-[center_22%]" }, // close-up portrait → frame the face
+  { src: "/images/lookbook/03.png", pos: "object-[center_38%]" }, // two seated → frame torsos/faces
+  { src: "/images/lookbook/20.png", pos: "object-[center_28%]" }, // full-body standing → favour upper body
+  { src: "/images/lookbook/04.png", pos: "object-center" },        // lying with book → centred
 ];
 
 export default function LookbookPage() {
@@ -81,18 +82,18 @@ export default function LookbookPage() {
 
         {/* Panels */}
         <div className="absolute inset-0 flex pt-14">
-          {HERO_PANELS.map((src, i) => (
+          {HERO_PANELS.map((panel, i) => (
             <div
               key={i}
               className={`relative overflow-hidden ${i >= 2 ? "hidden sm:block" : ""} flex-1`}
             >
               <Image
-                src={src}
+                src={panel.src}
                 alt=""
                 fill
                 priority
                 quality={92}
-                className="object-cover object-top"
+                className={`object-cover ${panel.pos}`}
                 sizes="(max-width: 640px) 50vw, 25vw"
               />
               {/* Uniform tint so text sits clearly on top */}
