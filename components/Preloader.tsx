@@ -8,20 +8,54 @@ export default function Preloader() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const hide = () => setVisible(false);
+    // Minimum hold keeps the splash visible long enough for the video to
+    // buffer its first frames — prevents the laggy/blank entry on the hero.
+    const MIN_MS = 2800;
+    const start = Date.now();
+
+    let loadFired = false;
+    let minElapsed = false;
+    let safetyTimer: ReturnType<typeof setTimeout>;
+
+    const tryHide = () => {
+      if (loadFired && minElapsed) setVisible(false);
+    };
+
+    const onLoad = () => {
+      loadFired = true;
+      tryHide();
+    };
+
+    const onMinElapsed = () => {
+      minElapsed = true;
+      tryHide();
+    };
+
+    const minTimer = setTimeout(onMinElapsed, MIN_MS);
 
     if (document.readyState === "complete") {
-      // Page already loaded — short hold so the logo registers, then fade
-      const t = setTimeout(hide, 900);
-      return () => clearTimeout(t);
+      loadFired = true;
+    } else {
+      window.addEventListener("load", onLoad);
     }
 
-    window.addEventListener("load", hide);
-    // Safety net: never block the page for more than 4 s
-    const t = setTimeout(hide, 4000);
+    // Also wait for the hero video's canplay event so it's buffered before reveal
+    const video = document.querySelector<HTMLVideoElement>("video");
+    if (video) {
+      const onCanPlay = () => {
+        loadFired = true;
+        tryHide();
+      };
+      video.addEventListener("canplay", onCanPlay, { once: true });
+    }
+
+    // Hard cap — never block more than 6 s regardless
+    safetyTimer = setTimeout(() => setVisible(false), 6000);
+
     return () => {
-      window.removeEventListener("load", hide);
-      clearTimeout(t);
+      window.removeEventListener("load", onLoad);
+      clearTimeout(minTimer);
+      clearTimeout(safetyTimer);
     };
   }, []);
 
