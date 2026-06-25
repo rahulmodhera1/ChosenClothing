@@ -61,13 +61,16 @@ const IMAGES = [
   alt: `Chosen — Look ${img.n}`,
 }));
 
-// Four hero panels. Each gets its own focal point so the subject is framed
-// correctly inside the tall, narrow panel regardless of the shot's framing.
+// Four hero panels. Each shot is framed differently (close-up vs full-body vs
+// reclined), so we zoom + nudge each one to bring the subjects' heads onto a
+// common level and to even out how large each person reads. `scale` creates
+// vertical crop room; `ty` shifts vertically (negative = up); `origin` anchors
+// the zoom. Tune these to fine-align the heads.
 const HERO_PANELS = [
-  { src: "/images/lookbook/13.png", pos: "object-[center_22%]" }, // close-up portrait → frame the face
-  { src: "/images/lookbook/10.png", pos: "object-[center_28%]" }, // brown cargo, reclined → frame face/torso
-  { src: "/images/lookbook/20.png", pos: "object-[center_28%]" }, // full-body standing → favour upper body
-  { src: "/images/lookbook/04.png", pos: "object-center" },        // lying with book → centred
+  { src: "/images/lookbook/13.png", scale: 1.12, ty: -4, origin: "center" }, // close-up portrait
+  { src: "/images/lookbook/10.png", scale: 1.12, ty: 0, origin: "center" },  // brown cargo, reclined
+  { src: "/images/lookbook/20.png", scale: 1.6, ty: 7, origin: "top" },      // full-body standing → zoom in
+  { src: "/images/lookbook/04.png", scale: 1.18, ty: -8, origin: "center" }, // lying with book → raise
 ];
 
 export default function LookbookPage() {
@@ -93,7 +96,11 @@ export default function LookbookPage() {
                 fill
                 priority
                 quality={92}
-                className={`object-cover ${panel.pos}`}
+                className="object-cover object-top"
+                style={{
+                  transform: `scale(${panel.scale}) translateY(${panel.ty}%)`,
+                  transformOrigin: `center ${panel.origin}`,
+                }}
                 sizes="(max-width: 640px) 50vw, 25vw"
               />
               {/* Uniform tint so text sits clearly on top */}
