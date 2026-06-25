@@ -35,25 +35,32 @@ export default function HeroSection() {
     setSkyReached(true);
   };
 
-  // Robust autoplay for mobile. Browsers (notably iOS Safari) only autoplay
-  // when the element is *programmatically* confirmed muted and play() is
-  // explicitly invoked — the HTML attributes alone aren't always honored.
+  // Hold playback until the preloader signals ready, then start the video.
+  // The video still preloads in the background so it's buffered by the time
+  // the splash fades — no lag on entry.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
 
+    v.muted = true;
+    v.defaultMuted = true;
+
+    let started = false;
     const tryPlay = () => {
-      v.muted = true;
-      v.defaultMuted = true;
+      if (started) return;
+      started = true;
       const p = v.play();
-      if (p) p.catch(() => { /* will retry on interaction */ });
+      if (p) p.catch(() => { /* will retry on gesture */ });
     };
 
-    tryPlay();
-    v.addEventListener("loadeddata", tryPlay);
-    v.addEventListener("canplay", tryPlay);
+    const onReady = () => {
+      // Video is buffered and preloader is gone — start cleanly
+      tryPlay();
+    };
 
-    // Last resort: kick playback on the first user gesture, then detach.
+    window.addEventListener("chosen:ready", onReady, { once: true });
+
+    // Last resort: if gesture fires before chosen:ready, still start
     const onGesture = () => {
       tryPlay();
       window.removeEventListener("touchstart", onGesture);
@@ -63,8 +70,7 @@ export default function HeroSection() {
     window.addEventListener("click", onGesture);
 
     return () => {
-      v.removeEventListener("loadeddata", tryPlay);
-      v.removeEventListener("canplay", tryPlay);
+      window.removeEventListener("chosen:ready", onReady);
       window.removeEventListener("touchstart", onGesture);
       window.removeEventListener("click", onGesture);
     };
@@ -86,7 +92,6 @@ export default function HeroSection() {
       {/* Drone video — plays once, holds on final frame */}
       <video
         ref={videoRef}
-        autoPlay
         muted
         playsInline
         preload="auto"

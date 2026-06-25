@@ -10,7 +10,7 @@ export default function Preloader() {
   useEffect(() => {
     // Minimum hold keeps the splash visible long enough for the video to
     // buffer its first frames — prevents the laggy/blank entry on the hero.
-    const MIN_MS = 2800;
+    const MIN_MS = 2000;
     const start = Date.now();
 
     let loadFired = false;
@@ -18,7 +18,11 @@ export default function Preloader() {
     let safetyTimer: ReturnType<typeof setTimeout>;
 
     const tryHide = () => {
-      if (loadFired && minElapsed) setVisible(false);
+      if (loadFired && minElapsed) {
+        // Signal the hero video to start playing as the preloader begins fading
+        window.dispatchEvent(new CustomEvent("chosen:ready"));
+        setVisible(false);
+      }
     };
 
     const onLoad = () => {
@@ -50,7 +54,10 @@ export default function Preloader() {
     }
 
     // Hard cap — never block more than 6 s regardless
-    safetyTimer = setTimeout(() => setVisible(false), 6000);
+    safetyTimer = setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("chosen:ready"));
+      setVisible(false);
+    }, 6000);
 
     return () => {
       window.removeEventListener("load", onLoad);
