@@ -95,11 +95,15 @@ export default function HeroSection() {
           const v = e.currentTarget;
           if (!v.duration) return;
 
-          // Ease playback rate from 1× down to 0.15× over the last 2 seconds
-          // so the video glides to a stop rather than cutting abruptly.
+          // Gently ease the playback rate down over the last 2 seconds so the
+          // video settles into its final frame instead of cutting abruptly.
+          // Stay above ~0.55× — slower than that makes individual frames show
+          // through and reads as lag. An ease-out curve keeps it smooth.
           const timeLeft = v.duration - v.currentTime;
           if (timeLeft <= 2) {
-            const rate = Math.max(0.15, timeLeft / 2);
+            const t = Math.max(0, timeLeft / 2);      // 1 → 0 across the window
+            const eased = t * t;                        // ease-out deceleration
+            const rate = 0.55 + 0.45 * eased;           // 1.0 → 0.55
             if (Math.abs(v.playbackRate - rate) > 0.02) v.playbackRate = rate;
           }
 
