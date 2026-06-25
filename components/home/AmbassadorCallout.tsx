@@ -28,7 +28,7 @@ export default function AmbassadorCallout() {
         </div>
         <Link
           href="/contact#ambassador"
-          className="press flex-shrink-0 border border-[#8a98ad] text-[#8a98ad] hover:bg-[#8a98ad] hover:text-white font-display text-sm tracking-widest px-8 py-4"
+          className="press w-full sm:w-auto sm:flex-shrink-0 text-center border border-[#8a98ad] text-[#8a98ad] hover:bg-[#8a98ad] hover:text-white font-display text-sm tracking-widest px-8 py-4"
         >
           APPLY NOW
         </Link>

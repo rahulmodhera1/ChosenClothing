@@ -64,14 +64,14 @@ export default function LookbookTeaser() {
             <Link
               key={i}
               href="/lookbook"
-              className="relative block w-[240px] sm:w-[320px] lg:w-[380px] aspect-[4/5] flex-shrink-0 overflow-hidden rounded-md bg-[#e2e7ee] shadow-[0_1px_2px_rgba(20,23,28,0.05)] hover:shadow-[0_12px_30px_rgba(20,23,28,0.16)] transition-shadow duration-500"
+              className="relative block w-[200px] sm:w-[280px] lg:w-[360px] aspect-[4/5] flex-shrink-0 overflow-hidden rounded-md bg-[#e2e7ee] shadow-[0_1px_2px_rgba(20,23,28,0.05)] hover:shadow-[0_12px_30px_rgba(20,23,28,0.16)] transition-shadow duration-500"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 loading="lazy"
-                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105"
+                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] sm:hover:scale-105"
                 sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 380px"
               />
             </Link>

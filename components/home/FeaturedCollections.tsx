@@ -114,7 +114,7 @@ export default function FeaturedCollections() {
 
               {/* Text */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-display text-2xl sm:text-3xl text-white tracking-wider leading-tight">
+                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl text-white tracking-wider leading-tight">
                   {col.title.toUpperCase()}
                 </h3>
                 <p className="text-white/75 text-sm mt-1 leading-relaxed">{col.subtitle}</p>

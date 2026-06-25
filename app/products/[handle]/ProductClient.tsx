@@ -94,7 +94,7 @@ export default function ProductClient({ product }: ProductClientProps) {
               transition={{ duration: 0.5, ease: easeOut }}
             >
               <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Chosen</p>
-              <h1 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider leading-tight">
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#14171c] tracking-wider leading-tight">
                 {product.title.toUpperCase()}
               </h1>
 
@@ -121,7 +121,7 @@ export default function ProductClient({ product }: ProductClientProps) {
                         key={variant.id}
                         onClick={() => setSelectedVariant(variant)}
                         disabled={!variant.availableForSale}
-                        className={`press w-12 h-12 text-xs font-medium tracking-widest border ${
+                        className={`press w-11 h-11 sm:w-12 sm:h-12 text-xs font-medium tracking-widest border ${
                           selectedVariant.id === variant.id
                             ? "bg-[#14171c] border-[#14171c] text-white"
                             : variant.availableForSale
@@ -143,7 +143,7 @@ export default function ProductClient({ product }: ProductClientProps) {
                 <button
                   onClick={handleAddToCart}
                   disabled={!selectedVariant.availableForSale || isLoading}
-                  className={`press w-full font-display text-sm tracking-widest py-5 ${
+                  className={`press w-full font-display text-sm tracking-wide sm:tracking-widest py-5 ${
                     !selectedVariant.availableForSale
                       ? "bg-[#eef1f5] border border-[#dde1e8] text-[#5b6573] cursor-not-allowed"
                       : added

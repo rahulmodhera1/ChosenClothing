@@ -27,7 +27,7 @@ export default function ContactClient() {
   };
 
   const inputClass =
-    "w-full bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors";
+    "w-full bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-base sm:text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors";
 
   return (
     <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -41,7 +41,7 @@ export default function ContactClient() {
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#14171c] tracking-wider">CONTACT</h1>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
         {/* Contact form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -31,7 +31,7 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-white border-l border-[#dde1e8] flex flex-col"
+            className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-[min(28rem,100vw)] bg-white border-l border-[#dde1e8] flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#dde1e8]">
@@ -95,7 +95,7 @@ export default function CartDrawer() {
                             <button
                               onClick={() => updateItem(line.id, line.quantity - 1)}
                               disabled={isLoading}
-                              className="press min-w-[40px] min-h-[40px] flex items-center justify-center text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
+                              className="press min-w-[44px] min-h-[44px] flex items-center justify-center text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
                               aria-label="Decrease quantity"
                             >
                               −
@@ -104,7 +104,7 @@ export default function CartDrawer() {
                             <button
                               onClick={() => updateItem(line.id, line.quantity + 1)}
                               disabled={isLoading}
-                              className="press min-w-[40px] min-h-[40px] flex items-center justify-center text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
+                              className="press min-w-[44px] min-h-[44px] flex items-center justify-center text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
                               aria-label="Increase quantity"
                             >
                               +

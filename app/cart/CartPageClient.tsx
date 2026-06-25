@@ -19,7 +19,7 @@ export default function CartPageClient() {
         transition={{ duration: 0.5, ease: easeOut }}
       >
         <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Review</p>
-        <h1 className="font-display text-5xl sm:text-6xl text-[#14171c] tracking-wider mb-12">YOUR BAG</h1>
+        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#14171c] tracking-wider mb-10 sm:mb-12">YOUR BAG</h1>
 
         {lines.length === 0 ? (
           <div className="text-center py-20">
@@ -36,7 +36,7 @@ export default function CartPageClient() {
             {/* Items */}
             <div className="lg:col-span-2 space-y-6">
               {lines.map((line) => (
-                <div key={line.id} className="flex gap-5 pb-6 border-b border-[#dde1e8]">
+                <div key={line.id} className="flex gap-3 sm:gap-5 pb-6 border-b border-[#dde1e8]">
                   <div className="relative w-24 h-32 bg-[#eef1f5] flex-shrink-0 overflow-hidden">
                     {line.merchandise.product.featuredImage ? (
                       <Image
@@ -72,7 +72,7 @@ export default function CartPageClient() {
                         <button
                           onClick={() => updateItem(line.id, line.quantity - 1)}
                           disabled={isLoading}
-                          className="press px-3 py-1.5 text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
+                          className="press px-3 py-2.5 min-w-[44px] text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
                           aria-label="Decrease quantity"
                         >
                           -
@@ -81,7 +81,7 @@ export default function CartPageClient() {
                         <button
                           onClick={() => updateItem(line.id, line.quantity + 1)}
                           disabled={isLoading}
-                          className="press px-3 py-1.5 text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
+                          className="press px-3 py-2.5 min-w-[44px] text-[#5b6573] hover:text-[#14171c] disabled:opacity-50"
                           aria-label="Increase quantity"
                         >
                           +

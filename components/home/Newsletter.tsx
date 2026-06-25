@@ -52,11 +52,11 @@ export default function Newsletter() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="flex-1 bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors"
+              className="w-full sm:flex-1 bg-white border border-[#dde1e8] text-[#14171c] placeholder-[#9aa3b0] text-base sm:text-sm px-5 py-3.5 focus:outline-none focus:border-[#8a98ad] transition-colors"
             />
             <button
               type="submit"
-              className="press bg-[#8a98ad] hover:bg-[#6f7e95] text-white font-display text-sm tracking-widest px-8 py-3.5 whitespace-nowrap"
+              className="press w-full sm:w-auto bg-[#8a98ad] hover:bg-[#6f7e95] text-white font-display text-sm tracking-widest px-8 py-3.5 whitespace-nowrap"
             >
               SUBSCRIBE
             </button>

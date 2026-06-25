@@ -33,7 +33,7 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
       <div className="flex flex-wrap gap-3 mb-10">
         <button
           onClick={() => setActiveCollection(null)}
-          className={`press text-xs font-medium tracking-widest uppercase px-5 py-2.5 border ${
+          className={`press text-xs font-medium tracking-widest uppercase px-3 py-2 sm:px-5 sm:py-2.5 border ${
             !activeCollection
               ? "bg-[#8a98ad] border-[#8a98ad] text-white"
               : "border-[#dde1e8] text-[#5b6573] hover:border-[#8a98ad] hover:text-[#8a98ad]"
@@ -45,7 +45,7 @@ export default function ShopClient({ products, collections }: ShopClientProps) {
           <button
             key={col.handle}
             onClick={() => setActiveCollection(col.handle)}
-            className={`press text-xs font-medium tracking-widest uppercase px-5 py-2.5 border ${
+            className={`press text-xs font-medium tracking-widest uppercase px-3 py-2 sm:px-5 sm:py-2.5 border ${
               activeCollection === col.handle
                 ? "bg-[#8a98ad] border-[#8a98ad] text-white"
                 : "border-[#dde1e8] text-[#5b6573] hover:border-[#8a98ad] hover:text-[#8a98ad]"

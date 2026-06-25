@@ -246,7 +246,7 @@ export default function HeroSection() {
       )}
 
       {/* Bottom content — larger, editorial, futuristic */}
-      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-6 pb-28 sm:pb-36 gap-9 sm:gap-11">
+      <div className="absolute inset-x-0 bottom-0 z-[25] flex flex-col items-center text-center px-4 sm:px-6 pb-24 sm:pb-36 gap-6 sm:gap-11">
         {/* Signature tagline — metallic chrome with a slow travelling shimmer,
             flanked by hairline rules that draw outward on entrance. */}
         <div className="flex items-center gap-4 sm:gap-7">
@@ -271,7 +271,7 @@ export default function HeroSection() {
               letterSpacing: { duration: 1.6, delay: 0.4, ease: easeOut },
               backgroundPosition: { duration: 6.5, delay: 1.4, ease: "linear", repeat: Infinity, repeatDelay: 1.2 },
             }}
-            className="text-center text-xl sm:text-4xl md:text-5xl uppercase font-semibold"
+            className="text-center text-lg sm:text-3xl md:text-5xl uppercase font-semibold"
             style={{
               backgroundImage:
                 "linear-gradient(110deg, #8a98ad 0%, #dce5f0 18%, #ffffff 28%, #eef2f8 40%, #ffffff 52%, #c4cfde 64%, #ffffff 76%, #8a98ad 100%)",
@@ -302,7 +302,7 @@ export default function HeroSection() {
         >
           <Link
             href="/shop"
-            className="press inline-flex items-center rounded-full border border-white/30 bg-white/[0.07] backdrop-blur-md px-9 py-4 sm:px-12 sm:py-5 text-white text-xs sm:text-sm tracking-[0.3em] uppercase font-light transition-all duration-300 hover:border-white/70 hover:bg-white/[0.15] hover:shadow-[0_0_35px_rgba(255,255,255,0.14),inset_0_0_20px_rgba(255,255,255,0.04)]"
+            className="press inline-flex items-center rounded-full border border-white/30 bg-white/[0.07] backdrop-blur-md px-7 py-3.5 sm:px-12 sm:py-5 text-white text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase font-light transition-all duration-300 hover:border-white/70 hover:bg-white/[0.15] hover:shadow-[0_0_35px_rgba(255,255,255,0.14),inset_0_0_20px_rgba(255,255,255,0.04)] whitespace-nowrap"
           >
             Shop the Collection
           </Link>
