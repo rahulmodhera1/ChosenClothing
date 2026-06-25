@@ -38,35 +38,43 @@ export default function Navbar() {
           scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <Link
-              href="/"
-              className="-ml-1 flex items-center"
-              onClick={() => setMenuOpen(false)}
-            >
-              <Image
-                src="/images/ChosenLogo.png"
-                alt="Chosen"
-                width={90}
-                height={48}
-                className="h-10 w-auto object-contain"
-                style={{ filter: "brightness(0)" }}
-                priority
-              />
-            </Link>
+            <motion.div whileHover={{ scale: 1.07, rotate: -2 }} transition={{ type: "spring", stiffness: 400, damping: 18 }}>
+              <Link
+                href="/"
+                className="flex items-center"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Image
+                  src="/images/ChosenLogo.png"
+                  alt="Chosen"
+                  width={90}
+                  height={48}
+                  className="h-10 w-auto object-contain"
+                  style={{ filter: "brightness(0)" }}
+                  priority
+                />
+              </Link>
+            </motion.div>
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <Link
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-[#14171c] hover:text-[#8a98ad] transition-colors tracking-wider uppercase"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className="relative text-sm font-medium text-[#14171c] tracking-wider uppercase group"
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#8a98ad] transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                </motion.div>
               ))}
             </div>
 
