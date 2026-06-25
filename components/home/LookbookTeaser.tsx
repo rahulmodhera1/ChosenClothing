@@ -28,15 +28,13 @@ export default function LookbookTeaser() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: easeOut }}
-          className="flex items-end justify-between mb-10"
+          className="flex flex-col items-center text-center mb-10"
         >
-          <div>
-            <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Editorial</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider">THE LOOKBOOK</h2>
-          </div>
+          <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Editorial</p>
+          <h2 className="font-display text-4xl sm:text-5xl text-[#14171c] tracking-wider">THE LOOKBOOK</h2>
           <Link
             href="/lookbook"
-            className="hidden sm:inline-block text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5 hover:text-[#14171c] hover:border-[#14171c] transition-colors"
+            className="mt-5 inline-block text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5 hover:text-[#14171c] hover:border-[#14171c] transition-colors"
           >
             View All
           </Link>
@@ -81,14 +79,6 @@ export default function LookbookTeaser() {
         </motion.div>
       </motion.div>
 
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-8 sm:hidden">
-        <Link
-          href="/lookbook"
-          className="text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5"
-        >
-          View All
-        </Link>
-      </div>
     </section>
   );
 }
