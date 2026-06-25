@@ -61,16 +61,15 @@ const IMAGES = [
   alt: `Chosen — Look ${img.n}`,
 }));
 
-// Four hero panels. Each shot is framed differently (close-up vs full-body vs
-// reclined), so we zoom + nudge each one to bring the subjects' heads onto a
-// common level and to even out how large each person reads. `scale` creates
-// vertical crop room; `ty` shifts vertically (negative = up); `origin` anchors
-// the zoom. Tune these to fine-align the heads.
+// Pre-cropped hero panels. Each was cropped with face detection so every
+// subject's head sits at the same level and the same scale — see the crop
+// script. They share one aspect ratio, so they tile cleanly with no CSS
+// trickery needed.
 const HERO_PANELS = [
-  { src: "/images/lookbook/13.png", scale: 1.12, ty: -4, origin: "center" }, // close-up portrait
-  { src: "/images/lookbook/10.png", scale: 1.12, ty: 0, origin: "center" },  // brown cargo, reclined
-  { src: "/images/lookbook/20.png", scale: 1.6, ty: 7, origin: "top" },      // full-body standing → zoom in
-  { src: "/images/lookbook/04.png", scale: 1.18, ty: -8, origin: "center" }, // lying with book → raise
+  "/images/lookbook/hero-1.png",
+  "/images/lookbook/hero-2.png",
+  "/images/lookbook/hero-3.png",
+  "/images/lookbook/hero-4.png",
 ];
 
 export default function LookbookPage() {
@@ -85,22 +84,18 @@ export default function LookbookPage() {
 
         {/* Panels */}
         <div className="absolute inset-0 flex pt-14">
-          {HERO_PANELS.map((panel, i) => (
+          {HERO_PANELS.map((src, i) => (
             <div
               key={i}
               className={`relative overflow-hidden ${i >= 2 ? "hidden sm:block" : ""} flex-1`}
             >
               <Image
-                src={panel.src}
+                src={src}
                 alt=""
                 fill
                 priority
                 quality={92}
                 className="object-cover object-top"
-                style={{
-                  transform: `scale(${panel.scale}) translateY(${panel.ty}%)`,
-                  transformOrigin: `center ${panel.origin}`,
-                }}
                 sizes="(max-width: 640px) 50vw, 25vw"
               />
               {/* Uniform tint so text sits clearly on top */}
@@ -137,8 +132,8 @@ export default function LookbookPage() {
             Chosen Clothing — Season I
           </p>
           <h1
-            className="font-display uppercase text-white leading-none tracking-[0.05em]"
-            style={{ fontSize: "clamp(4.5rem, 16vw, 14rem)" }}
+            className="font-display uppercase text-white leading-none tracking-[0.05em] drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]"
+            style={{ fontSize: "clamp(3rem, 10vw, 8.5rem)" }}
           >
             Lookbook
           </h1>
