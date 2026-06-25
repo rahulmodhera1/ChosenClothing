@@ -38,7 +38,7 @@ const COLLECTION_ITEM_ORDER: Record<string, string[]> = {
 
 const COLLECTION_HERO_IMAGES: Record<string, string> = {
   "brown-cargo-set": "/images/collections/Cargo/CargoHeader.jpg",
-  "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/2.png",
+  "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/Rhinestone.jpeg",
 };
 
 // Horizontal anchor for the hero title (% from left). Default 50 (centered),
