@@ -38,7 +38,7 @@ export default function Navbar() {
           scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="w-full px-2">
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <motion.div whileHover={{ scale: 1.07, rotate: -2 }} transition={{ type: "spring", stiffness: 400, damping: 18 }}>
