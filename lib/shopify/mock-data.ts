@@ -1,12 +1,14 @@
 import type { Product, Collection, Cart } from "@/types/shopify";
 
-const sizes = (ids: number[], price: string) => ids.map((id, i) => ({
-  id: `gid://shopify/ProductVariant/${id}`,
-  title: ["S", "M", "L", "XL"][i],
+const SIZES = ["XS", "S", "M", "L", "XL"];
+// Generate the full XS–XL size run from a unique starting id for each product
+const sizes = (startId: number, price: string) => SIZES.map((label, i) => ({
+  id: `gid://shopify/ProductVariant/${startId + i}`,
+  title: label,
   availableForSale: true,
   price: { amount: price, currencyCode: "CAD" },
   compareAtPrice: null,
-  selectedOptions: [{ name: "Size", value: ["S", "M", "L", "XL"][i] }],
+  selectedOptions: [{ name: "Size", value: label }],
 }));
 
 export const mockProducts: Product[] = [
@@ -23,7 +25,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Cargo/1.png", altText: "Brown Cargo Set styled", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "159.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "159.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([1, 2, 3, 4], "159.99") },
+    variants: { nodes: sizes(1, "159.99") },
     tags: ["cargo", "set", "featured"],
     availableForSale: true,
   },
@@ -38,7 +40,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Cargo/zipups.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "89.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "89.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([9, 10, 11, 12], "89.99") },
+    variants: { nodes: sizes(10, "89.99") },
     tags: ["cargo", "zip-up"],
     availableForSale: true,
   },
@@ -53,7 +55,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Cargo/1.png", altText: "Brown Cargo Pants", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "89.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "89.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([5, 6, 7, 8], "89.99") },
+    variants: { nodes: sizes(20, "89.99") },
     tags: ["cargo", "pants"],
     availableForSale: true,
   },
@@ -71,7 +73,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Rhinestone/1.png", altText: "Washed Rhinestone Tracksuit styled", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "189.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "189.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([13, 14, 15, 16], "189.99") },
+    variants: { nodes: sizes(30, "189.99") },
     tags: ["rhinestone", "tracksuit", "set", "new-arrivals"],
     availableForSale: true,
   },
@@ -86,7 +88,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Rhinestone/3.png", altText: "Rhinestone Zip Up Hoodie", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "109.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "109.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([17, 18, 19, 20], "109.99") },
+    variants: { nodes: sizes(40, "109.99") },
     tags: ["rhinestone", "hoodie"],
     availableForSale: true,
   },
@@ -101,7 +103,7 @@ export const mockProducts: Product[] = [
       { url: "/images/collections/Rhinestone/1.png", altText: "Rhinestone Sweat Pants", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "89.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "89.99", currencyCode: "CAD" } },
-    variants: { nodes: sizes([21, 22, 23, 24], "89.99") },
+    variants: { nodes: sizes(50, "89.99") },
     tags: ["rhinestone", "pants"],
     availableForSale: true,
   },

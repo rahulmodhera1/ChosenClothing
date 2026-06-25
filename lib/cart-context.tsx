@@ -34,15 +34,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const setCartId = (id: string) =>
     typeof window !== "undefined" && localStorage.setItem("cartId", id);
 
+  const persist = (c: Cart | null) => {
+    setCart(c);
+    if (typeof window !== "undefined") {
+      if (c) localStorage.setItem("cart", JSON.stringify(c));
+      else localStorage.removeItem("cart");
+    }
+  };
+
   const fetchCart = useCallback(async (cartId: string) => {
     const res = await fetch(`/api/cart?cartId=${cartId}`);
     if (res.ok) {
       const data = await res.json();
-      if (data.cart) setCart(data.cart);
+      if (data.cart) {
+        setCart(data.cart);
+        if (typeof window !== "undefined") localStorage.setItem("cart", JSON.stringify(data.cart));
+      }
     }
   }, []);
 
   useEffect(() => {
+    // Rehydrate the bag instantly from localStorage so it survives refreshes
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("cart");
+      if (saved) {
+        try { setCart(JSON.parse(saved)); } catch {}
+      }
+    }
     const cartId = getCartId();
     if (cartId) fetchCart(cartId);
   }, [fetchCart]);
@@ -58,7 +76,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       });
       if (res.ok) {
         const data = await res.json();
-        setCart(data.cart);
+        persist(data.cart);
         if (data.cart?.id) setCartId(data.cart.id);
         setIsOpen(true);
       }
@@ -77,7 +95,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "remove", cartId, lineIds: [lineId] }),
       });
-      if (res.ok) { const data = await res.json(); setCart(data.cart); }
+      if (res.ok) { const data = await res.json(); persist(data.cart); }
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +112,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "update", cartId, lines: [{ id: lineId, quantity }] }),
       });
-      if (res.ok) { const data = await res.json(); setCart(data.cart); }
+      if (res.ok) { const data = await res.json(); persist(data.cart); }
     } finally {
       setIsLoading(false);
     }
