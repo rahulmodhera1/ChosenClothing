@@ -36,7 +36,6 @@ export const mockProducts: Product[] = [
     featuredImage: { url: "/images/collections/Cargo/zipups.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
     images: { nodes: [
       { url: "/images/collections/Cargo/zipups.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
-      { url: "/images/collections/Cargo/4.png", altText: "Brown Cargo Zip Up styled", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "89.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "89.99", currencyCode: "CAD" } },
     variants: { nodes: sizes([9, 10, 11, 12], "89.99") },
