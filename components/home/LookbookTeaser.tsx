@@ -58,15 +58,15 @@ export default function LookbookTeaser() {
         }}
       >
         <motion.div
-          className="flex gap-3 sm:gap-4 w-max group-hover:[animation-play-state:paused]"
+          className="flex gap-4 sm:gap-5 w-max group-hover:[animation-play-state:paused]"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 90, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 140, ease: "linear", repeat: Infinity }}
         >
           {TRACK.map((img, i) => (
             <Link
               key={i}
               href="/lookbook"
-              className="relative block w-[160px] sm:w-[210px] lg:w-[240px] aspect-[4/5] flex-shrink-0 overflow-hidden rounded-md bg-[#e2e7ee] shadow-[0_1px_2px_rgba(20,23,28,0.05)] hover:shadow-[0_12px_30px_rgba(20,23,28,0.16)] transition-shadow duration-500"
+              className="relative block w-[240px] sm:w-[320px] lg:w-[380px] aspect-[4/5] flex-shrink-0 overflow-hidden rounded-md bg-[#e2e7ee] shadow-[0_1px_2px_rgba(20,23,28,0.05)] hover:shadow-[0_12px_30px_rgba(20,23,28,0.16)] transition-shadow duration-500"
             >
               <Image
                 src={img.src}
@@ -74,7 +74,7 @@ export default function LookbookTeaser() {
                 fill
                 loading="lazy"
                 className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105"
-                sizes="(max-width: 640px) 160px, (max-width: 1024px) 210px, 240px"
+                sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 380px"
               />
             </Link>
           ))}
