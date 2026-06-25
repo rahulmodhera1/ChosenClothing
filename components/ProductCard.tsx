@@ -26,7 +26,7 @@ export default function ProductCard({ product, badge }: ProductCardProps) {
     if (gallery.length < 2) return;
     const id = setInterval(() => {
       setActive((i) => (i + 1) % gallery.length);
-    }, 7000);
+    }, 10000);
     return () => clearInterval(id);
   }, [gallery.length]);
 
