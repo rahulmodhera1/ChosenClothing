@@ -21,12 +21,12 @@ export default function ProductCard({ product, badge }: ProductCardProps) {
     ? [product.featuredImage]
     : [];
 
-  // Auto-crossfade between photos when a card has more than one image
+  // Auto-advance the photo slideshow when a card has more than one image
   useEffect(() => {
     if (gallery.length < 2) return;
     const id = setInterval(() => {
       setActive((i) => (i + 1) % gallery.length);
-    }, 4500);
+    }, 7000);
     return () => clearInterval(id);
   }, [gallery.length]);
 
@@ -46,19 +46,23 @@ export default function ProductCard({ product, badge }: ProductCardProps) {
         {gallery.length === 0 ? (
           <div className="w-full h-full bg-[#e4e8ee]" />
         ) : (
-          gallery.map((img, i) => (
-            <Image
-              key={img.url}
-              src={img.url}
-              alt={img.altText ?? product.title}
-              fill
-              className={`object-cover absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105 ${
-                i === active ? "opacity-100" : "opacity-0"
-              }`}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              priority={i === 0}
-            />
-          ))
+          <div
+            className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+            style={{ transform: `translateX(-${active * 100}%)` }}
+          >
+            {gallery.map((img, i) => (
+              <div key={img.url} className="relative h-full w-full flex-shrink-0">
+                <Image
+                  src={img.url}
+                  alt={img.altText ?? product.title}
+                  fill
+                  className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={i === 0}
+                />
+              </div>
+            ))}
+          </div>
         )}
 
         {badge && (
