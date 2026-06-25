@@ -41,12 +41,9 @@ const COLLECTION_HERO_IMAGES: Record<string, string> = {
   "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/2.png",
 };
 
-// Horizontal anchor for the hero title (% from left). Default 50 (centered).
-// The cargo flatlay's garments sit right-of-center, so nudge the title into
-// the gap between the jacket and pants.
-const COLLECTION_TITLE_X: Record<string, string> = {
-  "brown-cargo-set": "57%",
-};
+// Horizontal anchor for the hero title (% from left). Default 50 (centered),
+// keeping the title aligned with the centered content below the hero.
+const COLLECTION_TITLE_X: Record<string, string> = {};
 
 export default async function CollectionPage({ params }: Params) {
   const { handle } = await params;
