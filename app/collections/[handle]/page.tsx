@@ -41,6 +41,13 @@ const COLLECTION_HERO_IMAGES: Record<string, string> = {
   "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/2.png",
 };
 
+// Horizontal anchor for the hero title (% from left). Default 50 (centered).
+// The cargo flatlay's garments sit right-of-center, so nudge the title into
+// the gap between the jacket and pants.
+const COLLECTION_TITLE_X: Record<string, string> = {
+  "brown-cargo-set": "57%",
+};
+
 export default async function CollectionPage({ params }: Params) {
   const { handle } = await params;
   const collection = await getCollectionByHandle(handle);
@@ -92,8 +99,11 @@ export default async function CollectionPage({ params }: Params) {
           </p>
         </div>
 
-        {/* Centered title */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        {/* Title — anchored at COLLECTION_TITLE_X (defaults to center) */}
+        <div
+          className="absolute inset-y-0 -translate-x-1/2 flex flex-col items-center justify-center text-center px-6"
+          style={{ left: COLLECTION_TITLE_X[handle] ?? "50%" }}
+        >
           <p className="text-white/70 text-xs tracking-[0.4em] uppercase mb-4">Chosen Clothing</p>
           <h1 className="font-display text-5xl sm:text-7xl text-white tracking-wider leading-none">
             {collection.title.toUpperCase()}
