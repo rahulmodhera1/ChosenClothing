@@ -23,15 +23,22 @@ export const revalidate = 60;
 
 const FEATURED_PRODUCT: Record<string, string> = {
   "brown-cargo-set": "chosen-brown-cargo-set",
+  "washed-rhinestone-tracksuit": "rhinestone-tracksuit-set",
 };
 
 const PRODUCT_BADGES: Record<string, string> = {
   "chosen-brown-cargo-set": "Most Popular",
+  "rhinestone-tracksuit-set": "New Arrival",
+};
+
+const COLLECTION_ITEM_ORDER: Record<string, string[]> = {
+  "brown-cargo-set": ["brown-cargo-zip-up", "brown-cargo-pants"],
+  "washed-rhinestone-tracksuit": ["rhinestone-zip-hoodie", "rhinestone-sweat-pants"],
 };
 
 const COLLECTION_HERO_IMAGES: Record<string, string> = {
   "brown-cargo-set": "/images/collections/Cargo/CargoHeader.jpg",
-  "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/hero.jpg",
+  "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/2.png",
 };
 
 export default async function CollectionPage({ params }: Params) {
@@ -42,7 +49,12 @@ export default async function CollectionPage({ params }: Params) {
   const products = collection.products.nodes;
   const featuredHandle = FEATURED_PRODUCT[handle];
   const featured = featuredHandle ? products.find((p) => p.handle === featuredHandle) : null;
-  const rest = featured ? products.filter((p) => p.handle !== featuredHandle) : products;
+  const unordered = featured ? products.filter((p) => p.handle !== featuredHandle) : products;
+  const order = COLLECTION_ITEM_ORDER[handle];
+  const rest = order
+    ? [...order.map((h) => unordered.find((p) => p.handle === h)).filter(Boolean) as typeof unordered,
+       ...unordered.filter((p) => !order.includes(p.handle))]
+    : unordered;
 
   const heroImageSrc = COLLECTION_HERO_IMAGES[handle];
   const heroImage = heroImageSrc ?? collection.image?.url ?? null;
@@ -125,7 +137,7 @@ export default async function CollectionPage({ params }: Params) {
 
                   {/* Text */}
                   <div className="absolute bottom-0 left-0 p-8 sm:p-12">
-                    <p className="text-white/60 text-xs tracking-[0.3em] uppercase mb-2">The Full Set</p>
+                    <p className="text-white/60 text-xs tracking-[0.3em] uppercase mb-2">{handle === "washed-rhinestone-tracksuit" ? "The Full Tracksuit" : "The Full Set"}</p>
                     <h2 className="font-display text-3xl sm:text-5xl text-white tracking-wider leading-tight">
                       {featured.title.toUpperCase()}
                     </h2>
