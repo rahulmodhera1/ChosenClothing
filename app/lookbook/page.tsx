@@ -61,27 +61,61 @@ const IMAGES = [
   alt: `Chosen — Look ${img.n}`,
 }));
 
-const HERO_SRC = "/images/lookbook/01.png";
+// Four hero panels — spread across the full width, different shots
+const HERO_PANELS = [
+  "/images/lookbook/03.png",
+  "/images/lookbook/06.png",
+  "/images/lookbook/09.png",
+  "/images/lookbook/12.png",
+];
 
 export default function LookbookPage() {
   return (
     <div className="min-h-screen bg-[#f7f8fa]">
 
-      {/* ── Cinematic hero banner (matches the collection page pattern) ── */}
-      <section className="relative h-[58vh] min-h-[420px] w-full overflow-hidden pt-14">
-        <Image
-          src={HERO_SRC}
-          alt="Chosen Lookbook"
-          fill
-          priority
-          quality={95}
-          className="object-cover object-[center_28%]"
-          sizes="100vw"
+      {/* ── 4-panel editorial hero ──
+          Four portrait shots fill the full viewport height side by side.
+          Massive LOOKBOOK type sits centred across all panels so the photos
+          bleed through the letters — classic fashion-editorial opening spread. */}
+      <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+
+        {/* Panels */}
+        <div className="absolute inset-0 flex pt-14">
+          {HERO_PANELS.map((src, i) => (
+            <div
+              key={i}
+              className={`relative overflow-hidden ${i >= 2 ? "hidden sm:block" : ""} flex-1`}
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                priority
+                quality={92}
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 50vw, 25vw"
+              />
+              {/* Uniform tint so text sits clearly on top */}
+              <div className="absolute inset-0 bg-black/30" />
+              {/* Hard black hairline divider between panels */}
+              {i < HERO_PANELS.length - 1 && (
+                <div className="absolute top-0 right-0 bottom-0 w-px bg-black/40" />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Left + right edge vignette to pull focus inward */}
+        <div className="absolute inset-0 pointer-events-none z-10"
+          style={{ background: "linear-gradient(to right, rgba(0,0,0,0.55) 0%, transparent 18%, transparent 82%, rgba(0,0,0,0.55) 100%)" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080a10]/85 via-[#080a10]/35 to-[#080a10]/45" />
+        {/* Top + bottom gradient for legibility */}
+        <div className="absolute inset-0 pointer-events-none z-10
+          bg-gradient-to-b from-black/60 via-transparent to-black/70"
+        />
 
         {/* Breadcrumb */}
-        <div className="absolute top-20 left-0 right-0 px-6 sm:px-10">
+        <div className="absolute top-20 left-0 right-0 px-6 sm:px-10 z-20">
           <p className="text-white/55 text-xs tracking-widest uppercase">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span className="mx-2">/</span>
@@ -89,24 +123,30 @@ export default function LookbookPage() {
           </p>
         </div>
 
-        {/* Centered title */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-          <p className="text-white/70 text-[10px] sm:text-xs tracking-[0.5em] uppercase mb-5">
+        {/* Central editorial title — sits over all four panels */}
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+          <p className="text-white/55 text-[10px] sm:text-xs tracking-[0.55em] uppercase mb-6 sm:mb-8">
             Chosen Clothing — Season I
           </p>
           <h1
-            className="font-display uppercase text-white tracking-[0.08em] leading-none"
-            style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)" }}
+            className="font-display uppercase text-white leading-none tracking-[0.05em]"
+            style={{ fontSize: "clamp(4.5rem, 16vw, 14rem)" }}
           >
             Lookbook
           </h1>
-          <div className="mt-7 flex items-center gap-5">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/45" />
-            <span className="text-white/65 text-[10px] tracking-[0.4em] uppercase">
+          <div className="mt-7 sm:mt-9 flex items-center gap-5">
+            <div className="h-px w-14 bg-gradient-to-r from-transparent to-white/40" />
+            <span className="text-white/55 text-[10px] tracking-[0.45em] uppercase">
               Toronto · 44 Looks
             </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/45" />
+            <div className="h-px w-14 bg-gradient-to-l from-transparent to-white/40" />
           </div>
+        </div>
+
+        {/* Scroll hint at the very bottom */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+          <span className="text-white/35 text-[9px] tracking-[0.4em] uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
       </section>
 
