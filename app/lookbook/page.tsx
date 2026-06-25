@@ -60,59 +60,90 @@ const IMAGES = [
   alt: `Chosen — Look ${img.n}`,
 }));
 
+const HERO_SRC = "/images/lookbook/01.png";
+
 export default function LookbookPage() {
   return (
-    <div className="min-h-screen bg-[#080a10]">
+    <div className="min-h-screen bg-[#f7f8fa]">
 
-      {/* ── Editorial header ── */}
-      <header className="pt-14 flex flex-col items-center justify-center py-20 sm:py-28 text-center px-6">
-        <p className="text-white/35 text-[10px] tracking-[0.55em] uppercase mb-6">
-          Chosen Clothing — Season I
-        </p>
-        <h1
-          className="font-display uppercase text-white tracking-[0.1em] leading-none mb-7"
-          style={{ fontSize: "clamp(3.2rem, 10vw, 8rem)" }}
-        >
-          Lookbook
-        </h1>
-        <p className="text-white/45 text-xs tracking-[0.3em] uppercase">
-          Toronto · Shot on location
-        </p>
-        <div className="mt-12 flex items-center gap-5">
-          <div className="h-px w-14 bg-gradient-to-r from-transparent to-white/20" />
-          <span className="text-white/20 text-[10px] tracking-[0.4em] uppercase">44 Looks</span>
-          <div className="h-px w-14 bg-gradient-to-l from-transparent to-white/20" />
+      {/* ── Cinematic hero banner (matches the collection page pattern) ── */}
+      <section className="relative h-[58vh] min-h-[420px] w-full overflow-hidden pt-14">
+        <Image
+          src={HERO_SRC}
+          alt="Chosen Lookbook"
+          fill
+          priority
+          quality={95}
+          className="object-cover object-[center_28%]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080a10]/85 via-[#080a10]/35 to-[#080a10]/45" />
+
+        {/* Breadcrumb */}
+        <div className="absolute top-20 left-0 right-0 px-6 sm:px-10">
+          <p className="text-white/55 text-xs tracking-widest uppercase">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="mx-2">/</span>
+            <span className="text-white/90">Lookbook</span>
+          </p>
         </div>
-      </header>
+
+        {/* Centered title */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <p className="text-white/70 text-[10px] sm:text-xs tracking-[0.5em] uppercase mb-5">
+            Chosen Clothing — Season I
+          </p>
+          <h1
+            className="font-display uppercase text-white tracking-[0.08em] leading-none"
+            style={{ fontSize: "clamp(3rem, 9vw, 7.5rem)" }}
+          >
+            Lookbook
+          </h1>
+          <div className="mt-7 flex items-center gap-5">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/45" />
+            <span className="text-white/65 text-[10px] tracking-[0.4em] uppercase">
+              Toronto · 44 Looks
+            </span>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/45" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Intro line ── */}
+      <div className="text-center px-6 pt-16 pb-12 sm:pt-20 sm:pb-14">
+        <p className="text-[#5b6573] text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+          Shot on location in Toronto. Worn by the ones who move different —
+          the full collection, styled and in motion.
+        </p>
+      </div>
 
       {/* ── Masonry gallery ──
-          CSS columns lay the images out top-to-bottom in balanced columns.
-          Each image keeps its true aspect ratio (w/h via the manifest) so the
-          full photo is always visible — no cropping, no stretching. Rendered
-          near native resolution, so nothing is upscaled or blurry. */}
-      <div className="mx-auto max-w-[1500px] px-3 sm:px-5 pb-8">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 sm:gap-4 [column-fill:balance]">
+          Light, wide and editorial. CSS columns lay images top-to-bottom in
+          balanced columns; each keeps its true aspect ratio from the manifest,
+          so the whole photo shows, stays sharp, and the layout fills the page. */}
+      <div className="mx-auto max-w-[1700px] px-4 sm:px-6 lg:px-8 pb-10">
+        <div className="columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-5 [column-fill:balance]">
           {IMAGES.map((img) => (
             <figure
               key={img.n}
-              className="group relative mb-3 sm:mb-4 break-inside-avoid overflow-hidden rounded-sm bg-[#111]"
+              className="group relative mb-4 sm:mb-5 break-inside-avoid overflow-hidden rounded-md bg-[#e9edf2] shadow-[0_1px_2px_rgba(20,23,28,0.04)] hover:shadow-[0_14px_40px_rgba(20,23,28,0.16)] transition-shadow duration-500"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 width={img.w}
                 height={img.h}
-                className="w-full h-auto block transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.03]"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="w-full h-auto block transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04]"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 quality={95}
-                priority={img.n <= 6}
+                priority={img.n <= 8}
               />
               {/* Hover reveal — subtle label + number */}
-              <figcaption className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <span className="text-white/75 text-[10px] tracking-[0.4em] uppercase font-light">
+              <figcaption className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                <span className="text-white/80 text-[10px] tracking-[0.4em] uppercase font-light">
                   Chosen
                 </span>
-                <span className="text-white/40 text-xs font-light tabular-nums">
+                <span className="text-white/50 text-xs font-light tabular-nums">
                   {String(img.n).padStart(2, "0")}
                 </span>
               </figcaption>
@@ -121,15 +152,15 @@ export default function LookbookPage() {
         </div>
       </div>
 
-      {/* ── CTA ── */}
-      <div className="flex flex-col items-center gap-8 py-24 sm:py-28 px-6 text-center">
-        <div className="space-y-3">
-          <p className="text-white/25 text-[10px] tracking-[0.5em] uppercase">Wear the look</p>
-          <p className="text-white/55 text-sm tracking-wider">Every piece is available now.</p>
+      {/* ── CTA (matches the collection page button style) ── */}
+      <div className="flex flex-col items-center gap-6 py-20 sm:py-24 px-6 text-center border-t border-[#dde1e8] mt-6">
+        <div className="space-y-2">
+          <p className="text-[#8a98ad] text-[10px] tracking-[0.5em] uppercase">Wear the look</p>
+          <p className="text-[#5b6573] text-sm tracking-wide">Every piece is available now.</p>
         </div>
         <Link
           href="/shop"
-          className="press inline-flex items-center border border-white/20 hover:border-white/60 text-white/65 hover:text-white font-display text-sm tracking-[0.4em] px-12 py-5 transition-all duration-300 hover:bg-white/[0.04]"
+          className="press inline-block border border-[#8a98ad] text-[#8a98ad] hover:bg-[#8a98ad] hover:text-white font-display text-sm tracking-widest px-10 py-4 transition-colors duration-300"
         >
           SHOP THE COLLECTION
         </Link>
