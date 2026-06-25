@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import LookbookGallery from "@/components/LookbookGallery";
 
 export const metadata: Metadata = {
   title: "Lookbook — Chosen",
@@ -117,40 +118,8 @@ export default function LookbookPage() {
         </p>
       </div>
 
-      {/* ── Masonry gallery ──
-          Light, wide and editorial. CSS columns lay images top-to-bottom in
-          balanced columns; each keeps its true aspect ratio from the manifest,
-          so the whole photo shows, stays sharp, and the layout fills the page. */}
-      <div className="mx-auto max-w-[1700px] px-4 sm:px-6 lg:px-8 pb-10">
-        <div className="columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-5 [column-fill:balance]">
-          {IMAGES.map((img) => (
-            <figure
-              key={img.n}
-              className="group relative mb-4 sm:mb-5 break-inside-avoid overflow-hidden rounded-md bg-[#e9edf2] shadow-[0_1px_2px_rgba(20,23,28,0.04)] hover:shadow-[0_14px_40px_rgba(20,23,28,0.16)] transition-shadow duration-500"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.w}
-                height={img.h}
-                className="w-full h-auto block transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04]"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                quality={95}
-                priority={img.n <= 8}
-              />
-              {/* Hover reveal — subtle label + number */}
-              <figcaption className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <span className="text-white/80 text-[10px] tracking-[0.4em] uppercase font-light">
-                  Chosen
-                </span>
-                <span className="text-white/50 text-xs font-light tabular-nums">
-                  {String(img.n).padStart(2, "0")}
-                </span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
+      {/* ── Masonry gallery (click any image to view it larger) ── */}
+      <LookbookGallery images={IMAGES} />
 
       {/* ── CTA (matches the collection page button style) ── */}
       <div className="flex flex-col items-center gap-6 py-20 sm:py-24 px-6 text-center border-t border-[#dde1e8] mt-6">

@@ -6,25 +6,29 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { easeOut } from "@/lib/motion";
 
-const teaserImages = [
-  { src: "/images/lookbook/look-1.jpg", alt: "Chosen lookbook 1" },
-  { src: "/images/lookbook/look-2.jpg", alt: "Chosen lookbook 2" },
-  { src: "/images/lookbook/look-3.jpg", alt: "Chosen lookbook 3" },
-  { src: "/images/lookbook/look-4.jpg", alt: "Chosen lookbook 4" },
-];
+// Cycle through the full set of looks — the marquee shows a few at a time and
+// scrolls through them all, so the home page previews the whole lookbook
+// without dumping 44 images on screen at once.
+const LOOKS = Array.from({ length: 44 }, (_, i) => ({
+  src: `/images/lookbook/${String(i + 1).padStart(2, "0")}.png`,
+  alt: `Chosen lookbook ${i + 1}`,
+}));
+
+// Two copies back-to-back so the -50% loop is seamless.
+const TRACK = [...LOOKS, ...LOOKS];
 
 export default function LookbookTeaser() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-20 bg-[#eef1f5]">
+    <section ref={ref} className="py-20 bg-[#eef1f5] overflow-hidden">
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: easeOut }}
-          className="flex items-end justify-between mb-8"
+          className="flex items-end justify-between mb-10"
         >
           <div>
             <p className="text-[#5b6573] text-xs tracking-[0.3em] uppercase mb-2">Editorial</p>
@@ -39,28 +43,45 @@ export default function LookbookTeaser() {
         </motion.div>
       </div>
 
-      {/* Full-width image strip — 2 cols on mobile, 4 on sm+ */}
-      <div className="grid grid-cols-2 sm:flex sm:gap-2 overflow-hidden gap-2 px-4 sm:px-0">
-        {teaserImages.map((img, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.7, delay: i * 0.1, ease: easeOut }}
-            className="relative sm:flex-1 min-w-0 aspect-[2/3]"
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 50vw, 25vw"
-            />
-          </motion.div>
-        ))}
-      </div>
+      {/* Auto-scrolling marquee — pauses on hover. Edges fade out for a clean,
+          continuous feel rather than a hard cut at the viewport border. */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8, ease: easeOut }}
+        className="group relative"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+        }}
+      >
+        <motion.div
+          className="flex gap-3 sm:gap-4 w-max group-hover:[animation-play-state:paused]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 90, ease: "linear", repeat: Infinity }}
+        >
+          {TRACK.map((img, i) => (
+            <Link
+              key={i}
+              href="/lookbook"
+              className="relative block w-[160px] sm:w-[210px] lg:w-[240px] aspect-[4/5] flex-shrink-0 overflow-hidden rounded-md bg-[#e2e7ee] shadow-[0_1px_2px_rgba(20,23,28,0.05)] hover:shadow-[0_12px_30px_rgba(20,23,28,0.16)] transition-shadow duration-500"
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                loading="lazy"
+                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105"
+                sizes="(max-width: 640px) 160px, (max-width: 1024px) 210px, 240px"
+              />
+            </Link>
+          ))}
+        </motion.div>
+      </motion.div>
 
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-6 sm:hidden">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-8 sm:hidden">
         <Link
           href="/lookbook"
           className="text-[#8a98ad] text-xs tracking-widest uppercase border-b border-[#8a98ad] pb-0.5"
