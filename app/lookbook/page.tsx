@@ -65,7 +65,7 @@ const IMAGES = [
 // correctly inside the tall, narrow panel regardless of the shot's framing.
 const HERO_PANELS = [
   { src: "/images/lookbook/13.png", pos: "object-[center_22%]" }, // close-up portrait → frame the face
-  { src: "/images/lookbook/03.png", pos: "object-[center_38%]" }, // two seated → frame torsos/faces
+  { src: "/images/lookbook/10.png", pos: "object-[center_28%]" }, // brown cargo, reclined → frame face/torso
   { src: "/images/lookbook/20.png", pos: "object-[center_28%]" }, // full-body standing → favour upper body
   { src: "/images/lookbook/04.png", pos: "object-center" },        // lying with book → centred
 ];
