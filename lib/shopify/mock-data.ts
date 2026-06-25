@@ -33,9 +33,9 @@ export const mockProducts: Product[] = [
     handle: "brown-cargo-zip-up",
     description: "The Brown Cargo Zip Up. Full-zip heavyweight corduroy with side cargo pockets. Pairs perfectly with the pants or worn solo.",
     descriptionHtml: "<p>The Brown Cargo Zip Up. Full-zip heavyweight corduroy with cargo pockets.</p>",
-    featuredImage: { url: "/images/collections/Cargo/3.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
+    featuredImage: { url: "/images/collections/Cargo/Zipup.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
     images: { nodes: [
-      { url: "/images/collections/Cargo/3.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
+      { url: "/images/collections/Cargo/Zipup.png", altText: "Brown Cargo Zip Up", width: 800, height: 1000 },
       { url: "/images/collections/Cargo/4.png", altText: "Brown Cargo Zip Up styled", width: 800, height: 1000 },
     ]},
     priceRange: { minVariantPrice: { amount: "89.99", currencyCode: "CAD" }, maxVariantPrice: { amount: "89.99", currencyCode: "CAD" } },
