@@ -30,7 +30,7 @@ const PRODUCT_BADGES: Record<string, string> = {
 };
 
 const COLLECTION_HERO_IMAGES: Record<string, string> = {
-  "brown-cargo-set": "/images/collections/Cargo/hero.jpg",
+  "brown-cargo-set": "/images/collections/Cargo/CargoHeader.jpg",
   "washed-rhinestone-tracksuit": "/images/collections/Rhinestone/hero.jpg",
 };
 
@@ -57,7 +57,7 @@ export default async function CollectionPage({ params }: Params) {
             src={heroImage}
             alt={collection.title}
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
             priority
             sizes="100vw"
           />
