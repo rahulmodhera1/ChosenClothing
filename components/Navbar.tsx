@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/cart-context";
@@ -42,10 +43,18 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="font-display text-2xl text-[#14171c] tracking-widest hover:text-[#8a98ad] transition-colors"
+              className="-ml-1 flex items-center"
               onClick={() => setMenuOpen(false)}
             >
-              CHOSEN
+              <Image
+                src="/images/ChosenLogo.png"
+                alt="Chosen"
+                width={90}
+                height={48}
+                className="h-10 w-auto object-contain"
+                style={{ filter: "brightness(0)" }}
+                priority
+              />
             </Link>
 
             {/* Desktop nav */}
