@@ -94,6 +94,15 @@ export default function HeroSection() {
         onTimeUpdate={(e) => {
           const v = e.currentTarget;
           if (!v.duration) return;
+
+          // Ease playback rate from 1× down to 0.15× over the last 2 seconds
+          // so the video glides to a stop rather than cutting abruptly.
+          const timeLeft = v.duration - v.currentTime;
+          if (timeLeft <= 2) {
+            const rate = Math.max(0.15, timeLeft / 2);
+            if (Math.abs(v.playbackRate - rate) > 0.02) v.playbackRate = rate;
+          }
+
           if (v.currentTime >= v.duration - STARS_LEAD) revealSky();
           // Ramp the grade across the final window, easing 0 → 1.
           const start = v.duration - GRADE_FADE_WINDOW;
