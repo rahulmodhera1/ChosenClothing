@@ -224,8 +224,8 @@ export default function HeroSection() {
                 backgroundSize: "260% 100%",
                 mixBlendMode: "screen",
               }}
-              initial={{ backgroundPosition: "-70% 0%" }}
-              animate={{ backgroundPosition: "170% 0%" }}
+              initial={{ backgroundPosition: "170% 0%" }}
+              animate={{ backgroundPosition: "-70% 0%" }}
               transition={{ duration: 1.7, delay: 1.4, ease: easeInOut, repeat: Infinity, repeatDelay: 3.5 }}
             />
           </motion.div>
