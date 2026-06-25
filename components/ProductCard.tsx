@@ -8,9 +8,10 @@ import { formatPrice } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
+  badge?: string;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, badge }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
 
   const primaryImage = product.images.nodes[0] ?? product.featuredImage;
@@ -55,7 +56,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         )}
 
-        {!product.availableForSale && (
+        {badge && (
+          <div className="absolute top-3 left-3 bg-[#14171c] text-white text-[10px] font-bold tracking-widest px-3 py-1.5 uppercase">
+            {badge}
+          </div>
+        )}
+        {!product.availableForSale && !badge && (
           <div className="absolute top-3 left-3 bg-white/85 text-[#14171c] text-[10px] font-medium tracking-widest px-2 py-1 uppercase">
             Sold Out
           </div>
