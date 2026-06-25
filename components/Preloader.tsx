@@ -19,7 +19,9 @@ export default function Preloader() {
 
     const tryHide = () => {
       if (loadFired && minElapsed) {
-        // Signal the hero video to start playing as the preloader begins fading
+        // Stamp a flag so components that mount after this event (e.g. on
+        // back-navigation) can check synchronously instead of waiting forever.
+        (window as unknown as Record<string, unknown>).__chosenReady = true;
         window.dispatchEvent(new CustomEvent("chosen:ready"));
         setVisible(false);
       }
@@ -55,6 +57,7 @@ export default function Preloader() {
 
     // Hard cap — never block more than 6 s regardless
     safetyTimer = setTimeout(() => {
+      (window as unknown as Record<string, unknown>).__chosenReady = true;
       window.dispatchEvent(new CustomEvent("chosen:ready"));
       setVisible(false);
     }, 6000);

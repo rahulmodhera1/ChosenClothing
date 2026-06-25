@@ -35,9 +35,10 @@ export default function HeroSection() {
     setSkyReached(true);
   };
 
-  // Hold playback until the preloader signals ready, then start the video.
-  // The video still preloads in the background so it's buffered by the time
-  // the splash fades — no lag on entry.
+  // Start the video once the preloader signals ready.
+  // On back-navigation the preloader is already gone, so __chosenReady will
+  // be set and we play immediately instead of waiting for an event that
+  // already fired. A 3 s fallback ensures we never stay stuck.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -50,17 +51,22 @@ export default function HeroSection() {
       if (started) return;
       started = true;
       const p = v.play();
-      if (p) p.catch(() => { /* will retry on gesture */ });
+      if (p) p.catch(() => { /* gesture fallback below */ });
     };
 
-    const onReady = () => {
-      // Video is buffered and preloader is gone — start cleanly
+    // Already past the preloader (e.g. client-side back-navigation) — go now
+    if ((window as unknown as Record<string, unknown>).__chosenReady) {
       tryPlay();
-    };
+      return;
+    }
 
+    const onReady = () => tryPlay();
     window.addEventListener("chosen:ready", onReady, { once: true });
 
-    // Last resort: if gesture fires before chosen:ready, still start
+    // Fallback: play after 3 s no matter what (blocked autoplay, slow network)
+    const fallback = setTimeout(tryPlay, 3000);
+
+    // Gesture fallback for browsers that block autoplay until interaction
     const onGesture = () => {
       tryPlay();
       window.removeEventListener("touchstart", onGesture);
@@ -73,6 +79,7 @@ export default function HeroSection() {
       window.removeEventListener("chosen:ready", onReady);
       window.removeEventListener("touchstart", onGesture);
       window.removeEventListener("click", onGesture);
+      clearTimeout(fallback);
     };
   }, []);
 
